@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom';
-import { DashboardSidebar } from "../../components";
+import { DashboardSidebar, Loader } from "../../components";
 
 const Overview = lazy(() => import("./Overview"));
 const ProductOverview = lazy(() => import("./products/ProductsOverview"));
@@ -12,7 +12,7 @@ const Dashboard = () => {
         
         <main className='flex justify-center py-5'>
             <div className='w-[95%] pt-4'>
-                <Suspense fallback="Loading...">
+                <Suspense fallback={<Loader />}>
                   <Routes>
                       <Route index element={<Overview />} />
                       <Route path="products/*" element={<ProductOverview />} />

@@ -35,7 +35,6 @@ const AddProduct = () => {
         image
       };
       Object.entries(payload).map(([name, value]) => formData.append(name, value));
-      console.log(Object.values(data).every(value => value !== ""), )
 
       if (Object.values(payload).every(value => value !== "")) {
         console.log("Submitting");

@@ -38,7 +38,7 @@ const Login = () => {
                     <Button
                         type="button"
                         className="w-max mx-auto flex py-3 px-5 text-md font-medium h-max bg-black hover:bg-black/95 rounded-sm"
-                        onClick={() => navigate("//user/register")}
+                        onClick={() => navigate("/user/register")}
                     >
                         Create an account
                     </Button>

@@ -1,20 +1,73 @@
+import axios from "@/lib/axios";
 import PropTypes from "prop-types";
-import { useContext, createContext, useState } from "react"
+import { useContext, createContext, useState, useEffect } from "react"
 
 const AuthContext = createContext({
     user: {},
+    token: null,
     login: () => {},
     logout: () => {},
-    register: () => {},
+    registerUser: () => {},
+    loginUser: () => {}
 });
 
 export const AuthProvider = ({ children }) => {
-    const [user] = useState({name: "user"});
+    const [user, setUser] = useState({});
+    const currentToken = localStorage.getItem("glittez_tk") ? localStorage.getItem("glittez_tk") : null;
+    const [token, setToken] = useState(currentToken);
+
+    useEffect(() => {
+        if (token) {
+            (async () => {
+                try {
+                    const request = await axios('/user');
+                    const response = request.data;
+                    
+                    setUser(prev => ({
+                        ...prev,
+                        ...response
+                    }));
+                } catch (err) {
+                    localStorage.setItem("glittez_tk", null);
+                    setToken(null);
+                }
+            })();
+        }
+    }, [token]);
+
+    const registerUser = async (payload) => {
+        try {
+            const request = await axios.post("/register", payload);
+            const response = request.data;
+            
+            setToken(response.token);
+            setUser(response.user);
+            localStorage.setItem("glittez_tk", response.token);
+        } catch(err) {
+            throw err.response.data;
+        }
+    }
+
+    const loginUser = async (payload) => {
+        try {
+            const request = await axios.post("/login", payload);
+            const response = request.data;
+            
+            setToken(response.token);
+            setUser(response.user);
+            localStorage.setItem("glittez_tk", response.token);
+        } catch(err) {
+            throw err.response.data;
+        }
+    }
 
     return (
         <AuthContext.Provider
             value={{
-                user
+                user,
+                token,
+                registerUser,
+                loginUser
             }}
         >
             {children}

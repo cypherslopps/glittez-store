@@ -73,6 +73,11 @@ export const dashboardNavigationLinks = [
     },
     {
         Icon: Icons.home,
+        title: "Users",
+        route: "/dashboard/users"
+    },
+    {
+        Icon: Icons.home,
         title: "Orders",
         route: "/dashboard/orders"
     },

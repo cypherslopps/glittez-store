@@ -13,6 +13,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import Hamburger from "./Hamburger";
 import OverviewStats from "./OverviewStats";
 import ProductTable from "./products/ProductTable";
+import Loader from "./Loader";
 
 export {
     ProductCollection,
@@ -29,5 +30,6 @@ export {
     DashboardSidebar,
     Hamburger,
     OverviewStats,
-    ProductTable
+    ProductTable,
+    Loader
 }

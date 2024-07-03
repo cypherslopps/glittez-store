@@ -1,4 +1,4 @@
-import { GuestFooter, GuestNavigation } from '@/components'
+import { GuestFooter, GuestNavigation, NotFound } from '@/components'
 import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -15,6 +15,7 @@ const Account = () => {
                 <Routes>
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
         </main>

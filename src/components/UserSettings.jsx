@@ -46,7 +46,7 @@ const UserSettings = () => {
 
       {doesUserExist && (
         <div 
-          className={`absolute left-1/2 -translate-x-1/2 w-48 px-3 py-2 bg-white border border-gray-400/45 z-40 rounded-md before:block before:absolute before:-top-[0.52rem] before:-z-20 before:left-1/2 before:-translate-x-1/2 before:w-4 before:h-4 before:bg-white before:border-t before:border-l before:border-gray-400/45 before:rotate-45 before:pointer-events-none transition-all duration-300 ${isSettingsOpen ? "-bottom-[7.2rem] opacity-1 pointer-events-none" : "-bottom-28 opacity-0 pointer-events-auto"}`}
+          className={`absolute left-1/2 -translate-x-1/2 w-48 px-3 py-2 bg-white border border-gray-400/45 z-40 rounded-md before:block before:absolute before:-top-[0.52rem] before:-z-20 before:left-1/2 before:-translate-x-1/2 before:w-4 before:h-4 before:bg-white before:border-t before:border-l before:border-gray-400/45 before:rotate-45 before:pointer-events-none transition-all duration-300 ${isSettingsOpen ? "-bottom-[7.2rem] opacity-1 pointer-events-auto" : "-bottom-28 opacity-0 pointer-events-none"}`}
           ref={settingsRef}
         > 
           <ul className="py-1.5 flex flex-col gap-y-[0.6rem]">
