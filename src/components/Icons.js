@@ -1,0 +1,58 @@
+import {
+    AlignJustify,
+    AlignLeft,
+    ChevronsUpDown,
+    Loader2
+} from "lucide-react";
+import {
+    RiAddLine,
+    RiArrowDownSLine,
+    RiArrowLeftSLine,
+    RiArrowRightSLine,
+    RiArrowUpLine,
+    RiArrowUpSLine,
+    RiCloseLine,
+    RiGovernmentFill,
+    RiHeartFill,
+    RiHeartLine,
+    RiHome5Fill,
+    RiInstagramFill,
+    RiLogoutCircleLine,
+    RiLogoutCircleRLine,
+    RiReceiptLine,
+    RiSearch2Line,
+    RiSettingsLine,
+    RiShoppingCartLine,
+    RiTwitterFill,
+    RiUserLine,
+} from "@remixicon/react";
+import { Eye, EyeOff } from "lucide-react";
+
+export const Icons = {
+    overview: RiGovernmentFill,
+    arrowRightS: RiArrowRightSLine,
+    arrowLeftS: RiArrowLeftSLine,
+    plus: RiAddLine,
+    arrowBottomS: RiArrowDownSLine,
+    arrowTopS: RiArrowUpSLine,
+    search: RiSearch2Line,
+    heart: RiHeartLine,
+    heartFill: RiHeartFill,
+    cart: RiShoppingCartLine,
+    loader: Loader2,
+    twitter: RiTwitterFill,
+    instagram: RiInstagramFill,
+    barJustify: AlignJustify,
+    barLeft: AlignLeft,
+    home: RiHome5Fill,
+    close: RiCloseLine,
+    user: RiUserLine,
+    receipt: RiReceiptLine,
+    logout: RiLogoutCircleRLine,
+    eye: Eye,
+    eyeClose: EyeOff,
+    settings: RiSettingsLine,
+    logoutL: RiLogoutCircleLine,
+    arrowUp: RiArrowUpLine,
+    arrowUpDown: ChevronsUpDown
+}
