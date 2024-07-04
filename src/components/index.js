@@ -14,6 +14,11 @@ import Hamburger from "./Hamburger";
 import OverviewStats from "./OverviewStats";
 import ProductTable from "./products/ProductTable";
 import Loader from "./Loader";
+import UserTable from "./users/UserTable";
+import CategoriesTable from "./categories/CategoriesTable";
+import SubCategoriesTable from "./categories/CategoriesTable";
+import OrdersTable from "./orders/OrdersTable";
+import SKUsTable from "./skus/SKUs";
 
 export {
     ProductCollection,
@@ -31,5 +36,10 @@ export {
     Hamburger,
     OverviewStats,
     ProductTable,
-    Loader
+    Loader,
+    UserTable,
+    CategoriesTable,
+    SubCategoriesTable,
+    OrdersTable,
+    SKUsTable
 }

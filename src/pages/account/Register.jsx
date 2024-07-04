@@ -28,6 +28,7 @@ const Register = () => {
         status: false,
         message: ""
     });
+    console.log(responseMessage);
 
     const register = async (e) => {
         e.preventDefault();
@@ -67,7 +68,7 @@ const Register = () => {
                 onSubmit={register}
                 className='w-[74vw]'
             >
-                
+
                 <div className='space-y-5'>
                     <div className='grid grid-cols-2 gap-x-2 gap-y-3.5'>
                         <Input 

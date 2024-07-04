@@ -43,7 +43,7 @@ const OverviewStats = () => {
                     {isLoading ? (
                         <Skeleton className="w-16 h-7" />
                     ) : (
-                        <div className={`w-max border ${status === "success" ? "bg-emerald-200/40 border-emerald-400/60 text-emerald-600" : "bg-red-300/80 border-red-500 text-red-600"} rounded-md flex items-center gap-x-0.5 py-0.5 px-1.5 font-medium font-nunito text-md`}>
+                        <div className={`w-max border ${status === "success" ? "bg-emerald-200/30 border-emerald-500/90 text-emerald-600" : "bg-red-300/80 border-red-500 text-red-600"} rounded-md flex items-center gap-x-0.5 py-0.5 px-1.5 font-medium font-nunito text-md`}>
                             <Icons.arrowUp className='w-4 h-4 -ml-0.5 -mt-0.5' />
                             432
                         </div>
@@ -64,7 +64,7 @@ const OverviewStats = () => {
                     {isLoading ? (
                         <Skeleton className="w-16 h-7" />
                     ) : (
-                        <div className={`w-max border ${status === "success" ? "bg-emerald-200/40 border-emerald-400/60 text-emerald-600" : "bg-red-300/80 border-red-500 text-red-600"} rounded-md flex items-center gap-x-0.5 py-0.5 px-1.5 font-medium font-nunito text-md`}>
+                        <div className={`w-max border ${status === "success" ? "bg-emerald-200/30 border-emerald-500/90 text-emerald-600" : "bg-red-300/80 border-red-500 text-red-600"} rounded-md flex items-center gap-x-0.5 py-0.5 px-1.5 font-medium font-nunito text-md`}>
                             <Icons.arrowUp className='w-4 h-4 -ml-0.5 -mt-0.5' />
                             432
                         </div>
@@ -85,7 +85,7 @@ const OverviewStats = () => {
                     {isLoading ? (
                         <Skeleton className="w-16 h-7" />
                     ) : (
-                        <div className={`w-max border ${status === "success" ? "bg-emerald-200/40 border-emerald-400/60 text-emerald-600" : "bg-red-300/80 border-red-500 text-red-600"} rounded-md flex items-center gap-x-0.5 py-0.5 px-1.5 font-medium font-nunito text-md`}>
+                        <div className={`w-max border ${status === "success" ? "bg-emerald-200/30 border-emerald-500/90 text-emerald-600" : "bg-red-300/80 border-red-500 text-red-600"} rounded-md flex items-center gap-x-0.5 py-0.5 px-1.5 font-medium font-nunito text-md`}>
                             <Icons.arrowUp className='w-4 h-4 -ml-0.5 -mt-0.5' />
                             432
                         </div>

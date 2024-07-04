@@ -6,6 +6,8 @@ import {
 } from "lucide-react";
 import {
     RiAddLine,
+    RiArchiveDrawerFill,
+    RiArchiveStackFill,
     RiArrowDownSLine,
     RiArrowLeftSLine,
     RiArrowRightSLine,
@@ -13,6 +15,7 @@ import {
     RiArrowUpSLine,
     RiCloseLine,
     RiGovernmentFill,
+    RiHandbagFill,
     RiHeartFill,
     RiHeartLine,
     RiHome5Fill,
@@ -23,7 +26,9 @@ import {
     RiSearch2Line,
     RiSettingsLine,
     RiShoppingCartLine,
+    RiTicket2Fill,
     RiTwitterFill,
+    RiUserFill,
     RiUserLine,
 } from "@remixicon/react";
 import { Eye, EyeOff } from "lucide-react";
@@ -47,6 +52,11 @@ export const Icons = {
     home: RiHome5Fill,
     close: RiCloseLine,
     user: RiUserLine,
+    userFill: RiUserFill,
+    category: RiArchiveStackFill,
+    subcategory: RiArchiveDrawerFill,
+    ticket: RiTicket2Fill,
+    handBag: RiHandbagFill,
     receipt: RiReceiptLine,
     logout: RiLogoutCircleRLine,
     eye: Eye,

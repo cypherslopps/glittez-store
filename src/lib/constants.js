@@ -67,24 +67,29 @@ export const dashboardNavigationLinks = [
         route: "/dashboard"
     },
     {
-        Icon: Icons.home,
+        Icon: Icons.handBag,
         title: "Products",
         route: "/dashboard/products"
     },
     {
-        Icon: Icons.home,
+        Icon: Icons.category,
+        title: "Categories",
+        route: "/dashboard/categories"
+    },
+    {
+        Icon: Icons.subcategory,
+        title: "SubCategories",
+        route: "/dashboard/subcategories"
+    },
+    {
+        Icon: Icons.userFill,
         title: "Users",
         route: "/dashboard/users"
     },
     {
-        Icon: Icons.home,
+        Icon: Icons.ticket,
         title: "Orders",
         route: "/dashboard/orders"
-    },
-    {
-        Icon: Icons.home,
-        title: "Transactions",
-        route: "/dashboard/transactions"
     }
 ];
 

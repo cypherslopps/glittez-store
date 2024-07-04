@@ -30,7 +30,7 @@ DashboardSidebarLink.propTypes = {
 
 const DashboardSidebar = () => {
   return (
-    <div className="h-screen bg-dashboardSidebar border-r border-gray-300/55 sticky top-5 left-0 px-3 pt-5 pb-3 flex flex-col justify-between">
+    <div className="h-screen bg-dashboardSidebar border-r border-gray-300/55 sticky top-0 left-0 px-3 pt-5 pb-3 flex flex-col justify-between">
      <div>
         <Link 
           to="/dashboard"

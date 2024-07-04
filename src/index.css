@@ -74,4 +74,21 @@
     body {
       @apply bg-background text-foreground;
     }
+    .scroll-ed::-webkit-scrollbar {
+      width: 40%;
+      height: 6px;
+    }
+
+    .scroll-ed::-webkit-scrollbar-track {
+      background-color: #f1f1f15c; /* color of the track (progress bar) */
+    }
+    
+    .scroll-ed::-webkit-scrollbar-thumb {
+      background-color: #0000001a; /* color of the scrollbar thumb */
+      border-radius: 6px; /* roundness of the thumb */
+    }
+    
+    .scroll-ed::-webkit-scrollbar-thumb:hover {
+      background-color: #555; /* color on hover */
+    }
   }
