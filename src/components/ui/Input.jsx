@@ -21,7 +21,7 @@ export const Input = ({ label, error, className, containerClassName, type, ...pr
                 role="group"
                 className="flex flex-col border border-gray-400/45 rounded-lg p-2 relative"
             >
-                <label className={`absolute px-0 -translate-y-1/2 pointer-events-none text-[.92rem] transition-all duration-300 ${isFloating ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
+                <label className={`absolute px-0 -translate-y-1/2 pointer-events-none text-[.92rem] transition-all duration-300 ${isFloating ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "font-medium top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
                 <input 
                     type={type === "password" ? passwordType : type}
                     className={cn(`outline-none border-none ${type === "password" ? "pl-1.5 pr-7" : "px-1.5"} h-7 text-[.94rem]`, className)}

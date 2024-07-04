@@ -69,7 +69,7 @@ export const dashboardNavigationLinks = [
     {
         Icon: Icons.handBag,
         title: "Products",
-        route: "/dashboard/products"
+        route: "/dashboard/products",
     },
     {
         Icon: Icons.category,
@@ -79,7 +79,7 @@ export const dashboardNavigationLinks = [
     {
         Icon: Icons.subcategory,
         title: "SubCategories",
-        route: "/dashboard/subcategories"
+        route: "/dashboard/subcategory"
     },
     {
         Icon: Icons.userFill,

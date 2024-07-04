@@ -15,7 +15,7 @@ function CategoriesTable({ data=[], isLoading }) {
         isLoading={isLoading}
         setRowSelection={setRowSelection}
         rowSelection={rowSelection}
-        emptySlateMessage="No Products Categories."
+        emptySlateMessage="No SubCategories."
       />
     </div>
   )

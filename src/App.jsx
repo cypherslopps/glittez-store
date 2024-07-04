@@ -1,6 +1,6 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { Loader } from "./components";
@@ -8,13 +8,9 @@ import { Loader } from "./components";
 const Guest = lazy(() => import("./pages/guest/Guest"));
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const Account = lazy(() => import("./pages/account/Account"));
+const AdminLogin = lazy(() => import("./pages/account/AdminLogin"));
 
 function App() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    console.log(pathname);
-  }, []);
 
   gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -24,6 +20,7 @@ function App() {
         <Route path="/*" element={<Guest />} />
         <Route path="/dashboard/*" element={<Dashboard />} />
         <Route path="user/*" element={<Account />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
       </Routes>
     </Suspense>
   

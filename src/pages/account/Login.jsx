@@ -37,7 +37,8 @@ const Login = () => {
 
                     <Button
                         type="button"
-                        className="w-max mx-auto flex py-3 px-5 text-md font-medium h-max bg-black hover:bg-black/95 rounded-sm"
+                        variant="black"
+                        className="w-full flex py-3 px-5 text-md font-medium h-max rounded-lg"
                         onClick={() => navigate("/user/register")}
                     >
                         Create an account
@@ -65,7 +66,7 @@ const Login = () => {
                         />    
                     </div>
 
-                    <Button className="w-full flex py-3 px-5 text-md font-medium h-max bg-black hover:bg-black/95 rounded-sm">
+                    <Button className="w-full flex py-3 px-5 text-md font-medium h-max rounded-lg">
                         Enter Store
                     </Button>
                 </div>

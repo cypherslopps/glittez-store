@@ -20,18 +20,16 @@ const ShopSidebar = () => {
   const [sizeValue, setSizeValue] = useState("");
   const [colorValue, setColorValue] = useState("");
 
-  console.log(colorValue)
-
   return (
-    <aside className='border-r border-gray-200 sticky top-5 left-0 space-y-4 pr-2.5 pt-2'>
+    <aside className='border-r border-gray-200 sticky top-0 h-screen bg-white left-0 space-y-4 pr-2.5 pt-2 overflow-y-scroll no-scrollbar'>
       <div className='space-y-1'>
-        <h4 className='text-base font-semibold'>Category</h4>
+        <h4 className='text-md font-semibold'>Category</h4>
 
-        <ul className='px-4 list-none'>
+        <ul className='px-4 space-y-0.5 list-none'>
           <li>
             <Link 
               to="/products/category/cars"
-              className='text-md hover:underline text-gray-700'
+              className='text-md font-medium hover:underline text-gray-700'
             >
               Cars
             </Link>
@@ -40,7 +38,7 @@ const ShopSidebar = () => {
           <li>
             <Link 
               to="/products/category/shoes"
-              className='text-md hover:underline text-gray-700'
+              className='text-md font-medium hover:underline text-gray-700'
             >
               Shoes
             </Link>
@@ -49,7 +47,7 @@ const ShopSidebar = () => {
           <li>
             <Link 
               to="/products/category/laptops"
-              className='text-md hover:underline text-gray-700'
+              className='text-md font-medium hover:underline text-gray-700'
             >
               Laptops
             </Link>
@@ -58,7 +56,7 @@ const ShopSidebar = () => {
       </div>
 
       <div className='space-y-1'>
-        <h4 className='text-base font-semibold'>Filter by:</h4>
+        <h4 className='text-md font-semibold'>Filter by:</h4>
 
         <div className='pl-2 space-y-2'>
           <Collapsible
@@ -67,7 +65,7 @@ const ShopSidebar = () => {
             className="space-y-1"
           >
             <div className="flex items-center justify-between space-x-4">
-              <h4 className="text-md font-medium">
+              <h4 className="text-[.92rem] font-medium">
                 Colors
               </h4>
               <CollapsibleTrigger asChild>
@@ -117,7 +115,7 @@ const ShopSidebar = () => {
             className="space-y-1"
           >
             <div className="flex items-center justify-between space-x-4">
-              <h4 className="text-md font-medium">
+              <h4 className="text-[.92rem] font-medium">
                 Sizes
               </h4>
               <CollapsibleTrigger asChild>
@@ -162,7 +160,7 @@ const ShopSidebar = () => {
             className="space-y-1"
           >
             <div className="flex items-center justify-between space-x-4">
-              <h4 className="text-md font-medium">
+              <h4 className="text-[.92rem] font-medium">
                 Prices
               </h4>
               <CollapsibleTrigger asChild>
@@ -196,7 +194,7 @@ const ShopSidebar = () => {
                     }}
                   />
                   
-                  <span className='text-md uppercase font-semibold text-gray-700'>${price}</span>
+                  <span className='text-md uppercase font-medium text-gray-600'>${price}</span>
                 </label>
               ))}
             </CollapsibleContent>

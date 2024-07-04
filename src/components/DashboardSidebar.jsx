@@ -6,13 +6,14 @@ import { Button } from './ui/Button';
 
 const DashboardSidebarLink = ({ Icon, title, route }) => {
   const { pathname } = useLocation();
-  const activeStyle = pathname === route ? "bg-white border border-gray-200 font-bold text-default" : "";
-  const activeIconStyle = pathname === route ? "text-red-500" : "text-black/70"
+  const path = route.split('/')[2];
+  const activeStyle = pathname === route || pathname.includes(path) ? "bg-white border border-gray-200 font-bold text-default" : "font-medium";
+  const activeIconStyle = pathname === route || pathname.includes(path) ? "text-red-500" : "text-black/70";
 
   return (
     <li>
       <Link 
-        className={`flex items-center gap-x-2 ${activeStyle} text-black/70 py-2 px-2.5 rounded-lg text-md`}
+        className={`flex items-center gap-x-2 ${activeStyle} text-black/65 py-2 px-2.5 rounded-lg text-md`}
         to={route}
       >
         <Icon className={`w-5 h-5 -mt-0.5 ${activeIconStyle}`} />

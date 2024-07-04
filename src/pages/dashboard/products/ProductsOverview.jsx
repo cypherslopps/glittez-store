@@ -1,4 +1,5 @@
-import { lazy } from "react"
+import { Loader } from "@/components";
+import { lazy, Suspense } from "react"
 import { Route, Routes } from "react-router-dom";
 
 const ProductList = lazy(() => import("./ProductsList"));
@@ -9,13 +10,15 @@ const AddProductSKU = lazy(() => import("./AddSKU"));
 
 const ProductsOverview = () => {
   return (
-    <Routes>
-        <Route index element={<ProductList />} />
-        <Route path="create" element={<AddProduct />} />
-        <Route path=":productId/edit" element={<EditProduct />} />
-        <Route path=":productId" element={<ProductInfo />} />
-        <Route path=":productId/skus/create" element={<AddProductSKU />} />
-    </Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+          <Route index element={<ProductList />} />
+          <Route path="create" element={<AddProduct />} />
+          <Route path=":productId/edit" element={<EditProduct />} />
+          <Route path=":productId" element={<ProductInfo />} />
+          <Route path=":productId/skus/create" element={<AddProductSKU />} />
+      </Routes>
+    </Suspense>
   )
 }
 

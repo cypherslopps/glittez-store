@@ -30,7 +30,7 @@ const GuestFooter = () => {
             to="/"
             className='text-2xl font-extrabold text-black'
           > 
-            GLITTLEZ
+            GLITTEZ
           </Link>
           <p className='text-[.92rem] text-gray-700'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias cum animi, quisquam sint consequatur illum quas. Lorem ipsum dolor sit amet, dolorum delectus soluta aliquid sapiente quisquam placeat et recusandae molestiae quibusdam dolorem.</p>
 

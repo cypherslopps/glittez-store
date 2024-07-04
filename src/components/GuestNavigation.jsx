@@ -20,7 +20,7 @@ import UserSettings from './UserSettings';
 const GuestNavigationLink = ({ title, route, hasDropdown }) => {
   const { pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isActive = pathname === route ? "underline font-medium" : "text-gray-900/90";
+  const isActive = pathname === route ? "underline font-bold" : "text-gray-900/90 font-medium";
   
   return (
     <li>

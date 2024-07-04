@@ -8,6 +8,7 @@ const UsersOverview = lazy(() => import("./users/UsersOverview"));
 const CategoriesOverview = lazy(() => import("./categories/CategoriesOverview"));
 const SubCategoriesOverview = lazy(() => import("./subcategories/SubCategoriesOverview"));
 const OrdersOverview = lazy(() => import("./orders/OrdersOverview"));
+const Settings = lazy(() => import("./Settings"));
 
 const Dashboard = () => {
   return (
@@ -22,8 +23,9 @@ const Dashboard = () => {
                       <Route path="products/*" element={<ProductOverview />} />
                       <Route path="users/*" element={<UsersOverview />} />
                       <Route path="categories/*" element={<CategoriesOverview />} />
-                      <Route path="subcategories/*" element={<SubCategoriesOverview />} />
+                      <Route path="subcategory/*" element={<SubCategoriesOverview />} />
                       <Route path="orders/*" element={<OrdersOverview />} />
+                      <Route path="settings" element={<Settings />} />
                       <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>

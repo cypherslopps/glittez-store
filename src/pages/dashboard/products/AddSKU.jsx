@@ -1,6 +1,6 @@
 import { Hamburger, SEO } from '@/components'
 import { Button } from '@/components/ui/Button'
-import { FileInput, Input, Select, Textarea } from '@/components/ui/Input'
+import { FileInput, Input, Select } from '@/components/ui/Input'
 import useForm from '@/hooks/useForm'
 import axios from '@/lib/axios'
 import { useState } from 'react'
