@@ -14,12 +14,14 @@ import {
     RiArrowUpLine,
     RiArrowUpSLine,
     RiCloseLine,
+    RiDeleteBin4Line,
     RiGovernmentFill,
     RiHandbagFill,
     RiHeartFill,
     RiHeartLine,
     RiHome5Fill,
     RiInstagramFill,
+    RiLink,
     RiLogoutCircleLine,
     RiLogoutCircleRLine,
     RiReceiptLine,
@@ -64,5 +66,7 @@ export const Icons = {
     settings: RiSettingsLine,
     logoutL: RiLogoutCircleLine,
     arrowUp: RiArrowUpLine,
-    arrowUpDown: ChevronsUpDown
+    arrowUpDown: ChevronsUpDown,
+    trash: RiDeleteBin4Line,
+    link: RiLink
 }

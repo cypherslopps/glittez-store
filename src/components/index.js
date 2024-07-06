@@ -16,7 +16,7 @@ import ProductTable from "./products/ProductTable";
 import Loader from "./Loader";
 import UserTable from "./users/UserTable";
 import CategoriesTable from "./categories/CategoriesTable";
-import SubCategoriesTable from "./categories/CategoriesTable";
+import SubCategoriesTable from "./subcategories/SubCategoriesTable";
 import OrdersTable from "./orders/OrdersTable";
 import SKUsTable from "./skus/SKUs";
 

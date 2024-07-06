@@ -6,8 +6,8 @@ const CartCheckoutItem = ({ product }) => {
     const { addToCart, removeItemFromCart } = useStore();
 
     return (
-        <blockquote className="grid grid-cols-[25%_1fr] gap-x-2">
-            <figure className="h-32 border border-gray-200/70 select-none">
+        <blockquote className="grid grid-cols-[28%_1fr] gap-x-2.5">
+            <figure className="h-32 border border-gray-200/90 select-none rounded-lg overflow-hidden">
                 <img 
                     src={Product1}
                     alt="product-1"
@@ -15,14 +15,22 @@ const CartCheckoutItem = ({ product }) => {
                 />
             </figure>
 
-            <div className="flex flex-col justify-between">
-                <header>
-                    <h4 className="text-[.92rem] font-medium">{product?.name ?? product?.title}</h4>
-                    <span className="text-sm text-gray-700">Size: <span className="font-semibold text-black">XL</span></span>
+            <div className="flex flex-col justify-between py-2">
+                <header className="space-y-2">
+                    <div className="flex justify-between">
+                        <h4 className="text-[.92rem] font-semibold">{product?.name ?? product?.title}</h4>
+                        <p className="font-nunito font-semibold text-md">${(parseFloat(product?.price.toLocaleString()) * product?.count).toFixed(3)}</p>
+                    </div>
+                    
+                    <div className="mt-1 -space-y-0.5">
+                        <span className="text-sm text-gray-700 flex items-center gap-x-1.5">Size <span className="w-1.5 h-1.5 bg-black rounded-black rounded-full" /> <span className="font-semibold text-black">XL</span></span>
+
+                        <span className="text-sm text-gray-700 flex items-center gap-x-1.5">Color <span className="w-1.5 h-1.5 bg-black rounded-black rounded-full" /> <span className="font-semibold text-black">Red</span></span>
+                    </div>
                 </header>
 
-                <footer className="flex items-center justify-between">
-                    <p className="font-nunito font-semibold">${(parseFloat(product?.price.toLocaleString()) * product?.count).toFixed(3)}</p>
+                <footer className="flex items-center justify-end">
+                    {/* <p className="font-nunito font-semibold text-md">${(parseFloat(product?.price.toLocaleString()) * product?.count).toFixed(3)}</p> */}
                     <ul className="border border-gray-400/45 divide-x divide-gray-400/45 flex items-center rounded-md">
                         <span 
                             className="px-3 py-0.5 font-nunito hover:cursor-pointer select-none"

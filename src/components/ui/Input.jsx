@@ -19,12 +19,12 @@ export const Input = ({ label, error, className, containerClassName, type, ...pr
         <div className={cn("flex flex-col gap-y-0.5", containerClassName)}>
             <div
                 role="group"
-                className="flex flex-col border border-gray-400/45 rounded-lg p-2 relative"
+                className={`flex flex-col border ${error ? "border-rose-500" : "border-gray-400/45"} rounded-lg p-2 relative`}
             >
-                <label className={`absolute px-0 -translate-y-1/2 pointer-events-none text-[.92rem] transition-all duration-300 ${isFloating ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "font-medium top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
+                <label className={`absolute -translate-y-1/2 pointer-events-none text-[.92rem] transition-all py-0 duration-300 ${props.disabled ? `${error ? "text-rose-500/60" : "text-black/50"} ` : `${error ? "text-rose-500" : "text-black"}`} ${isFloating || props.value ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
                 <input 
                     type={type === "password" ? passwordType : type}
-                    className={cn(`outline-none border-none ${type === "password" ? "pl-1.5 pr-7" : "px-1.5"} h-7 text-[.94rem]`, className)}
+                    className={cn(`outline-none border-none ${type === "password" ? "pl-1.5 pr-7" : "px-1.5"} h-7 text-[.94rem] disabled:opacity-60`, className)}
                     onFocus={() => setIsFloating(true)}
                     onBlur={() => props.value === "" ? setIsFloating(false) : setIsFloating(true)}
                     {...props}
@@ -61,7 +61,7 @@ export const FileInput = React.forwardRef(({ label, info, className, file, ...pr
     const fileInputRef = React.useRef(null);
   
     return (
-      <div className={cn("bg-gray-100/60 border border-gray-400/45 rounded-md h-20 text-muted-foreground/90", className)}>
+      <div className={cn("bg-gray-100/60 border border-gray-400/45 rounded-md h-20 text-gray-700", className)}>
         <input 
           type="file"
           ref={fileInputRef}
@@ -96,22 +96,23 @@ FileInput.propTypes = {
 }
 FileInput.displayName = "Input"
 
-export const Select = ({ label, error, options, className, containerClassName, ...props }) => {
+export const Select = ({ label, error, options, optionLabel="", className, containerClassName, ...props }) => {
     const [isFloating, setIsFloating] = useState(false);
     
     return (
         <div className={cn("flex flex-col gap-y-0.5", containerClassName)}>
             <div
                 role="group"
-                className="flex flex-col border border-gray-400/45 rounded-lg p-2 relative"
+                className={`flex flex-col border ${error ? "border-rose-500" : "border-gray-400/45"} rounded-lg p-2 relative`}
             >
-                <label className={`absolute -translate-y-1/2 pointer-events-none text-[.92rem] transition-all py-0 duration-300 ${isFloating ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
+                <label className={`absolute -translate-y-1/2 pointer-events-none text-[.92rem] transition-all py-0 duration-300 ${props.disabled ? `${error ? "text-rose-500/60" : "text-black/50"} ` : `${error ? "text-rose-500" : "text-black"} `} ${isFloating || props.value ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
                 <select
                     className={cn("outline-none border-none px-1.5 h-7 bg-transparent w-full text-[.94rem]", className)}
                     onFocus={() => setIsFloating(true)}
                     onBlur={() => props.value === "" ? setIsFloating(false) : setIsFloating(true)}
                     {...props}
                 >
+                    <option>{optionLabel}</option>
                     {options.map(option => (
                         <option
                             key={option}
@@ -134,6 +135,7 @@ Select.propTypes = {
     label: PropTypes.string,
     error: PropTypes.string,
     options: PropTypes.array,
+    optionLabel: PropTypes.string,
     className: PropTypes.string,
     props: PropTypes.object,
     containerClassName: PropTypes.string,

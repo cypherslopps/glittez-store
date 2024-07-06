@@ -2,6 +2,7 @@ import { footerLinks } from "@/lib/constants";
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom'
 import { Icons } from "./Icons";
+import Favicon from "../assets/images/favicon-text.png";
 
 const GuestFooterLink = ({ title, route }) => {
   return (
@@ -28,9 +29,13 @@ const GuestFooter = () => {
         <div className='flex flex-col gap-y-2'>
           <Link
             to="/"
-            className='text-2xl font-extrabold text-black'
+            className='text-2xl font-extrabold text-black -ml-5'
           > 
-            GLITTEZ
+            <img 
+              src={Favicon}
+              alt="favicon"
+              className="w-[55%] h-[5rem] object-cover"
+            />
           </Link>
           <p className='text-[.92rem] text-gray-700'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias cum animi, quisquam sint consequatur illum quas. Lorem ipsum dolor sit amet, dolorum delectus soluta aliquid sapiente quisquam placeat et recusandae molestiae quibusdam dolorem.</p>
 

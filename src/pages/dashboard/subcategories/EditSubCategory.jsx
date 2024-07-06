@@ -6,7 +6,7 @@ import axios from '@/lib/axios'
 import { useParams } from 'react-router-dom'
 
 const EditCategory = () => {
-  const { subCategoryID } = useParams();  
+  const { slug } = useParams();  
   const { data, handleChange, isLoading, setIsLoading, errors } = useForm({
     subcategory: "",
   });
@@ -36,7 +36,7 @@ const EditCategory = () => {
       />
 
       <header className='flex items-center justify-between mb-7'>
-        <h1 className='text-xl font-extrabold uppercase tracking-tight'>Edit SubCategory ({subCategoryID})</h1>
+        <h1 className='text-xl font-extrabold uppercase tracking-tight'>Edit SubCategory ({slug})</h1>
         <Hamburger />
       </header>
 

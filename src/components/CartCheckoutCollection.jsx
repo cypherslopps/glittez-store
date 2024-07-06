@@ -6,12 +6,12 @@ const CartCheckoutCollection = () => {
 
   return (
     <div>
-      <div className='flex flex-col gap-y-4'>
+      <div className='flex flex-col gap-y-5'>
         {cart.map(cart => (
-            <CartCheckoutItem 
-                key={cart.title}
-                product={cart}
-            />
+          <CartCheckoutItem 
+            key={cart.title}
+            product={cart}
+          />
         ))}
       </div>
 

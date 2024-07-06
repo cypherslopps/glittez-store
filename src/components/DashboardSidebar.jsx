@@ -1,8 +1,10 @@
-import { Link, useLocation } from 'react-router-dom'
+import { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import PropTypes from "prop-types";
 import { dashboardNavigationLinks } from '@/lib/constants';
 import { Icons } from './Icons';
 import { Button } from './ui/Button';
+import { useAuth } from '@/providers/AuthProvider';
 
 const DashboardSidebarLink = ({ Icon, title, route }) => {
   const { pathname } = useLocation();
@@ -30,8 +32,26 @@ DashboardSidebarLink.propTypes = {
 }
 
 const DashboardSidebar = () => {
+  const navigate = useNavigate();
+  const { logoutUser } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  
+  const logout = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoggingOut(true);
+      await logoutUser();
+      navigate("/admin/login");
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  }
+
   return (
-    <div className="h-screen bg-dashboardSidebar border-r border-gray-300/55 sticky top-0 left-0 px-3 pt-5 pb-3 flex flex-col justify-between">
+    <div className="h-screen bg-dashboardSidebar border-r border-gray-300/55 sticky top-0 left-0 px-3 pt-5 pb-3 flex flex-col justify-between z-50">
      <div>
         <Link 
           to="/dashboard"
@@ -72,8 +92,13 @@ const DashboardSidebar = () => {
                 variant="none"
                 size="none"
                 className='w-full flex justify-start gap-x-2 text-md text-black/70'
+                onClick={logout}
               >
-                <Icons.logoutL className="w-5 h-5" />
+                {isLoggingOut ? (
+                  <Icons.loader className="w-4 h-4 text-gray-600/90" />
+                ) : (
+                  <Icons.logout className="w-4 h-4 text-gray-600/90" />
+                )}
                 Log out
               </Button>
             </li>

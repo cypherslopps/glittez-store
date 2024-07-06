@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { Icons } from "../Icons";
 
 const buttonVariants = cva(
-  "inline-flex items-center font-roboto justify-center whitespace-nowrap rounded-lg text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-70 active:scale-[.98]",
+  "inline-flex items-center font-roboto justify-center whitespace-nowrap rounded-lg text-sm font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-70 active:scale-[.98]",
   {
     variants: {
       variant: {
@@ -15,6 +15,8 @@ const buttonVariants = cva(
         black: "bg-black text-white hover:bg-black/95",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        transparent: "bg-transparent text-black",
+        orange: "bg-orange-400 border border-orange-700",
         outline:
           "border border-gray-400 bg-background/60 hover:bg-accent hover:text-accent-foreground",
         secondary:
@@ -27,6 +29,7 @@ const buttonVariants = cva(
         ghost: "p-1.5",
         default: "h-8 px-4 py-2",
         sm: "h-8 rounded-md px-[.55rem] text-[.8rem]",
+        md: "h-9 rounded-md px-2.5 text-md",
         lg: "h-12 rounded-md px-4 text-[1.15rem]",
         icon: "h-9 w-10",
       },

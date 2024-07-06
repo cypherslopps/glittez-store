@@ -1,10 +1,12 @@
 import { Hamburger, ProductTable, SEO } from '@/components'
 import { Icons } from '@/components/Icons'
 import { Button } from '@/components/ui/Button'
+import { useProducts } from '@/hooks/useProducts'
 import { useNavigate } from 'react-router-dom'
 
 const ProductsList = () => {
   const navigate = useNavigate();
+  const { products, isLoading } = useProducts();
 
   return (
     <>
@@ -28,8 +30,8 @@ const ProductsList = () => {
       </header>
 
       <ProductTable 
-        data={[]}
-        isLoading={false}
+        data={products}
+        isLoading={isLoading}
       />
     </>
   )

@@ -16,6 +16,7 @@ import { Button } from './ui/Button';
 import CartButton from './CartButton';
 import FavoriteButton from './FavoriteButton';
 import UserSettings from './UserSettings';
+import Favicon from "../assets/images/favicon-text.png";
 
 const GuestNavigationLink = ({ title, route, hasDropdown }) => {
   const { pathname } = useLocation();
@@ -62,8 +63,14 @@ const GuestNavigation = () => {
 
       <Link
         to="/"
-        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-extrabold text-xl'
-      >Logo</Link>
+        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-extrabold text-xl flex justify-center items-center'
+      >
+        <img 
+          src={Favicon}
+          alt="glittez store"
+          className="w-[22%]"
+        />
+      </Link>
 
       <div className='flex items-center gap-x-1.5'>
         <Button 

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/providers/AuthProvider";
 import { Icons } from "./Icons";
 import { buttonVariants, Button } from "./ui/Button";
@@ -6,9 +6,12 @@ import { cn } from "@/lib/utils";
 import { useRef, useState } from "react";
 
 const UserSettings = () => {
-  const { user } = useAuth();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { user, logoutUser } = useAuth();
   const settingsRef = useRef(null);
   const [isSettingsOpen, toggleIsSettingsOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const doesUserExist = Object.values(user).length ? true : false;
   
   // useEffect(() => {
@@ -24,6 +27,21 @@ const UserSettings = () => {
   //   }
   // };
   // console.log(isSettingsOpen)
+
+  const logout = async (e) => {
+    e.preventDefault();
+
+    try {
+      setIsLoggingOut(true);
+      await logoutUser();
+      const path = pathname.includes("dashboard") ? "/admin/login" : "/";
+      navigate(path);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  }
 
   return (
     <div className="relative">
@@ -75,8 +93,13 @@ const UserSettings = () => {
                 variant="none"
                 size="none"
                 className="gap-x-1.5 w-full justify-start text-md font-medium text-gray-700"
+                onClick={logout}
               >
-                <Icons.logout className="w-4 h-4 text-gray-600/90" />
+                {isLoggingOut ? (
+                  <Icons.loader className="w-4 h-4 text-gray-600/90" />
+                ) : (
+                  <Icons.logout className="w-4 h-4 text-gray-600/90" />
+                )}
                 Logout
               </Button>  
             </li>  

@@ -3,16 +3,19 @@ import { allProducts } from '@/lib/constants'
 import { useEffect, useState } from 'react'
 
 export const useProducts = () => {
-  const [products] = useState(allProducts);
+  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
-        const request = await axios.get("/api/products");
+        const request = await axios.get("/products");
         const response = request.data;
-        console.log(response);
+        setProducts(prev => ([
+          ...prev,
+          ...response
+        ]));
       } catch (err) {
         console.log(err);
       } finally {

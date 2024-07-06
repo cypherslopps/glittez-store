@@ -1,13 +1,15 @@
 import { Hamburger, SEO } from '@/components'
 import { Button } from '@/components/ui/Button'
 import { FileInput, Input, Select, Textarea } from '@/components/ui/Input'
+import { useCategories, useSubCategories } from '@/hooks/useCategories'
 import useForm from '@/hooks/useForm'
 import axios from '@/lib/axios'
-import { useState } from 'react'
+import { errorEntries } from '@/lib/utils'
+import { useEffect, useState } from 'react'
 
 const AddProduct = () => {
   const [image, setImage] = useState(null);
-  const { data, handleChange, isLoading, setIsLoading, errors } = useForm({
+  const { data, setData, handleChange, isLoading, setIsLoading, errors, setErrors } = useForm({
     category: "",
     subCategory: "",
     name: "",
@@ -17,6 +19,40 @@ const AddProduct = () => {
     size: "",
     color: ""
   });
+  const { productCategories, isProductsCategoriesLoading } = useCategories();
+  const { subCategories, isSubCategoriesLoading } = useSubCategories();
+  const [allCategories, setAllCategories] = useState([]);
+  const [allSubCategories, seAllSubCategories] = useState([]);
+  const [categoryId, setCategoryId] = useState("");
+  const [subCategoryId, setSubCategoryId] = useState("");
+
+  useEffect(() => {
+    if (productCategories.length) {
+      const categories = productCategories.map(category => category.name);
+      setAllCategories(categories);
+    }
+  }, [productCategories])
+
+  useEffect(() => {
+    if (subCategories.length) {
+      const subCategoriesData = subCategories.map(sbc => sbc.name);
+      seAllSubCategories(subCategoriesData);
+    }
+  }, [subCategories])
+
+  useEffect(() => {
+    if (data.category) {
+      const category = productCategories.filter(c => c.name.toLowerCase() === data.category.toLowerCase())[0];
+      setCategoryId(category.id);
+    }
+  }, [data.category]);
+
+  useEffect(() => {
+    if (data.subCategory) {
+      const subcategory = subCategories.filter(sc => sc.name.toLowerCase() === data.subCategory.toLowerCase())[0];
+      setSubCategoryId(subcategory.id);
+    }
+  }, [data.subCategory]);
 
   const createNewProduct = async (e) => {
     e.preventDefault();
@@ -25,26 +61,41 @@ const AddProduct = () => {
       const formData = new FormData();
       const payload = {
         name: data.name,
-        category_id: 2,
-        subcategory_id: 4,
+        category_id: categoryId,
+        subcategory_id: subCategoryId,
         description: data.description,
-        price: data.price,
+        price: parseFloat(data.price),
         quantity: data.quantity,
         color: data.color,
         size: data.size,
         image
       };
+      console.log(payload);
       Object.entries(payload).map(([name, value]) => formData.append(name, value));
 
       if (Object.values(payload).every(value => value !== "")) {
-        console.log("Submitting");
         setIsLoading(true);
         const request = await axios.post('/products', formData);
         const response = request.data;
-        console.log(response);
+        console.log(response.message);
+
+        setData(prev => ({
+          ...prev,
+          category: "",
+          subCategory: "",
+          name: "",
+          description: "",
+          price: 0,
+          quantity: 0,
+          size: "",
+          color: ""
+        }));
+        setCategoryId("");
+        setSubCategoryId("");
       }
     } catch (err) {
-      console.log(err);
+      const error = err.response.data;
+      errorEntries(error, setErrors)
     } finally {
       setIsLoading(false);
     }
@@ -70,8 +121,9 @@ const AddProduct = () => {
           <Select 
             name="category"
             label="Category"
-            options={["Bags", "Gadgets"]}
+            options={allCategories}
             value={data.category}
+            disabled={isProductsCategoriesLoading}
             onChange={handleChange}
             error={errors.category}
           />
@@ -79,7 +131,8 @@ const AddProduct = () => {
           <Select 
             name="subCategory"
             label="Subcategory"
-            options={["Nike", "Prada"]}
+            options={allSubCategories}
+            disabled={isSubCategoriesLoading}
             value={data.subCategory}
             onChange={handleChange}
             error={errors.subCategory}
@@ -140,20 +193,15 @@ const AddProduct = () => {
             error={errors.size}
           />
 
-          <div className='flex flex-col gap-x-0.5'>
-            <span className='text-[.9rem]'>Product Color</span>
-            <input 
-              type="color"
-              name="color"
-              value={data.color}
-              onChange={handleChange}
-              className="w-full h-full"
-            />
-            {errors.size && (
-                <span className="text-sm font-medium text-rose-500">{errors.size}</span>
-            )}
-          </div>
-        </div>
+        <Input 
+          type="text"
+          name="color"
+          label="Color"
+          value={data.color}
+          onChange={handleChange}
+          error={errors.color}
+        />
+      </div>
 
         <Button
           isLoading={isLoading}

@@ -14,7 +14,7 @@ export const StoreProvider = ({ children }) => {
     const localizedCart = localStorage.getItem("glittez_store") ? JSON.parse(localStorage.getItem("glittez_store")) : [];
     const [cart, setCart] = useState(localizedCart);
     const cartCount = cart.reduce((acc, cur) => acc + cur.count, 0);
-    const totalAmount = cart.reduce((acc, cur) => acc + cur.price * cur.count, 0);
+    const totalAmount = cart.reduce((acc, cur) => acc + cur.price * cur.count, 0).toFixed(3);
 
     useEffect(() => {
         localStorage.setItem('glittez_store', JSON.stringify(cart));

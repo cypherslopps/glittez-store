@@ -1,7 +1,13 @@
 import { Hamburger, SubCategoriesTable, SEO } from '@/components'
+import { Icons } from '@/components/Icons';
+import { Button } from '@/components/ui/Button';
+import { useSubCategories } from '@/hooks/useCategories';
+import { useNavigate } from 'react-router-dom'
 
 const SubCategoriesList = () => {
-
+  const navigate = useNavigate();
+  const { subCategories, isSubCategoriesLoading } = useSubCategories();
+  
   return (
     <>
       <SEO 
@@ -11,12 +17,21 @@ const SubCategoriesList = () => {
 
       <header className='flex items-center justify-between mb-7'>
         <h1 className='text-xl font-extrabold uppercase tracking-tight'>SubCategories</h1>
-        <Hamburger />
+        <div className='flex items-center gap-x-1 md:gap-x-0'>
+          <Button 
+            className="px-3 gap-x-1 font-semibold"
+            onClick={() => navigate("/dashboard/subcategory/create")}
+          >
+              <Icons.plus className='w-4 h-4' />
+              Add SubCategory
+            </Button>
+          <Hamburger />
+        </div>
       </header>
 
       <SubCategoriesTable 
-        data={[]}
-        isLoading={false}
+        data={subCategories}
+        isLoading={isSubCategoriesLoading}
       />
     </>
   )

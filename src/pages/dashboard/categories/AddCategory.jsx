@@ -1,14 +1,13 @@
-import { useEffect } from 'react'
 import { Hamburger, SEO } from '@/components'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import useForm from '@/hooks/useForm'
 import axios from '@/lib/axios'
-import { useParams } from 'react-router-dom'
+import { errorEntries } from '@/lib/utils'
+import { useEffect } from 'react'
 
-const EditCategory = () => {
-  const { slug } = useParams();  
-  const { data, setData, handleChange, isLoading, setIsLoading, errors } = useForm({
+const AddCategory = () => {
+  const { data, setData, handleChange, isLoading, setIsLoading, errors, setErrors } = useForm({
     name: "",
     slug: ""
   });
@@ -20,21 +19,16 @@ const EditCategory = () => {
             ...prev,
             slug: replaceWhiteSpaceWithHyphens.toLowerCase()
         }))
-    } else {
-      setData(prev => ({
-        ...prev,
-        slug: ""
-      }))
     }
   }, [data.name])
 
-  const updateCategory = async (e) => {
+  const createNewCategory = async (e) => {
     e.preventDefault();
 
     try {
       if (Object.values(data).every(value => value !== "")) {
         setIsLoading(true);
-        const request = await axios.put(`/categories/${slug}/update`, data);
+        const request = await axios.post('/categories', data);
         const response = request.data;
         console.log(response.message);
 
@@ -43,9 +37,16 @@ const EditCategory = () => {
             name: "",
             slug: ""
         });
+      } else {
+        setData(prev => ({
+          ...prev,
+          slug: ""
+        }))
       }
     } catch (err) {
-      console.log(err);
+        const error = err.response.data;
+        console.log(error);
+        errorEntries(error, setErrors)
     } finally {
       setIsLoading(false);
     }
@@ -59,12 +60,12 @@ const EditCategory = () => {
       />
 
       <header className='flex items-center justify-between mb-7'>
-        <h1 className='text-xl font-extrabold uppercase tracking-tight'>Edit Category ({slug})</h1>
+        <h1 className='text-xl font-extrabold uppercase tracking-tight'>Add Category</h1>
         <Hamburger />
       </header>
 
       <form 
-        onSubmit={updateCategory}
+        onSubmit={createNewCategory}
         className='w-full bg-white border border-gray-300/65 px-4 py-6 rounded-lg shadow-md shadow-black/5 space-y-3.5'
       >
         <Input 
@@ -78,8 +79,9 @@ const EditCategory = () => {
         <Input 
             name="slug"
             label="Slug"
-            disabled={true}
             value={data.slug}
+            disabled={true}
+            onChange={handleChange}
             error={errors.slug}
         />
 
@@ -87,11 +89,11 @@ const EditCategory = () => {
           isLoading={isLoading}
           disabled={isLoading}
         >
-          Update Category
+          Add Product Category
         </Button>
       </form>
     </>
   )
 }
 
-export default EditCategory
+export default AddCategory

@@ -28,7 +28,6 @@ const Register = () => {
         status: false,
         message: ""
     });
-    console.log(responseMessage);
 
     const register = async (e) => {
         e.preventDefault();

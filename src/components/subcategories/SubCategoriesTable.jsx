@@ -4,7 +4,7 @@ import DataTable from "../ui/DataTable"
 import { columns } from "./Columns";
 
  
-function CategoriesTable({ data=[], isLoading }) { 
+function SubCategoriesTable({ data=[], isLoading }) { 
   const [rowSelection, setRowSelection] = useState({});
   
   return (
@@ -21,9 +21,9 @@ function CategoriesTable({ data=[], isLoading }) {
   )
 }
 
-CategoriesTable.propTypes = {
+SubCategoriesTable.propTypes = {
   data: PropTypes.array,
   isLoading: PropTypes.bool,
 }
 
-export default CategoriesTable;
+export default SubCategoriesTable;

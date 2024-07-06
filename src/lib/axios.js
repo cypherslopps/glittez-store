@@ -5,7 +5,7 @@ const axios = Axios.create({
 });
 
 axios.interceptors.request.use(config => {
-    const token = localStorage.getItem("glittez_tk");
+    const token = JSON.parse(localStorage.getItem("glittez_tk"));
 
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;

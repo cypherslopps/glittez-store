@@ -11,7 +11,7 @@ const Account = () => {
         <main className='px-2 sm:px-4 md:px-6'>
             <GuestNavigation />
 
-            <main className='py-16 flex flex-col items-center justify-center gap-y-8'>
+            <main className='py-16 flex flex-col items-center justify-center gap-y-11'>
                 <Routes>
                     <Route path="login" element={<Login />} />
                     <Route path="register" element={<Register />} />

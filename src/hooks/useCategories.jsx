@@ -67,7 +67,7 @@ export const useSubCategories = () => {
     (async () => {
       try {
         setIsLoading(true);
-        const request = await axios("/subcategoris");
+        const request = await axios("/subcategories");
         const response = request.data;
         setSubCategories(prev => ([
           ...prev,

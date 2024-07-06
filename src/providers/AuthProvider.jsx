@@ -8,12 +8,13 @@ const AuthContext = createContext({
     login: () => {},
     logout: () => {},
     registerUser: () => {},
-    loginUser: () => {}
+    loginUser: () => {},
+    logoutUser: () => {}
 });
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
-    const currentToken = localStorage.getItem("glittez_tk") ? localStorage.getItem("glittez_tk") : null;
+    const currentToken = localStorage.getItem("glittez_tk") ? JSON.parse(localStorage.getItem("glittez_tk")) : null;
     const [token, setToken] = useState(currentToken);
 
     useEffect(() => {
@@ -28,8 +29,12 @@ export const AuthProvider = ({ children }) => {
                         ...response
                     }));
                 } catch (err) {
-                    localStorage.setItem("glittez_tk", null);
-                    setToken(null);
+                    const message = err.response.data.message; 
+                    
+                    if (message.toLowerCase() === "unauthenticated" && token) {
+                        localStorage.setItem("glittez_tk", null);
+                        setToken(null);
+                    }
                 }
             })();
         }
@@ -39,10 +44,11 @@ export const AuthProvider = ({ children }) => {
         try {
             const request = await axios.post("/register", payload);
             const response = request.data;
+            const token = response.token;
             
-            setToken(response.token);
+            setToken(token);
             setUser(response.user);
-            localStorage.setItem("glittez_tk", response.token);
+            localStorage.setItem("glittez_tk", JSON.stringify(token));
         } catch(err) {
             throw err.response.data;
         }
@@ -52,11 +58,20 @@ export const AuthProvider = ({ children }) => {
         try {
             const request = await axios.post("/login", payload);
             const response = request.data;
+            const token = response.token;
             
-            setToken(response.token);
+            setToken(token);
             setUser(response.user);
-            localStorage.setItem("glittez_tk", response.token);
+            localStorage.setItem("glittez_tk", JSON.stringify(token));
         } catch(err) {
+            throw err.response.data;
+        }
+    }
+
+    const logoutUser = async () => {
+        try {
+            await axios.post("/logout");
+        } catch (err) { 
             throw err.response.data;
         }
     }
@@ -67,7 +82,8 @@ export const AuthProvider = ({ children }) => {
                 user,
                 token,
                 registerUser,
-                loginUser
+                loginUser,
+                logoutUser
             }}
         >
             {children}

@@ -1,6 +1,28 @@
 import { Hamburger, UserTable, SEO } from '@/components'
+import axios from '@/lib/axios';
+import { useEffect, useState } from 'react'
 
 const UsersList = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setIsLoading(true);
+        const request = await axios("/users");
+        const response = request.data;
+        setUsers(prev => ([
+          ...prev,
+          ...response
+        ]))
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -15,8 +37,8 @@ const UsersList = () => {
       </header>
 
       <UserTable 
-        data={[]}
-        isLoading={false}
+        data={users}
+        isLoading={isLoading}
       />
     </>
   )
