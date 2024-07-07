@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 export const useCategories = () => {
   const [productCategories, setProductCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {

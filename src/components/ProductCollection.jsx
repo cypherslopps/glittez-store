@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useGSAP } from "@gsap/react";
 import { useInView } from "react-intersection-observer";
 import gsap from "gsap";
-import ProductCollectionItem from "./ProductCollectionItem";
+import { ProductCollectionItem, ProductCollectionItemSkeleton } from "./ProductCollectionItem";
 import { cn } from "@/lib/utils";
 import { useRef } from "react";
 
@@ -13,39 +13,39 @@ const ProductCollection = ({ title, products=[], className }) => {
   const containerRef = useRef(null);
 
 
-  useGSAP(
-    () => {
-      const items = gsap.utils.toArray('.product-box');
-      items.forEach((item) => {
-        gsap.to(item, {
-          y: 100,
-          opacity: 0,
-          duration: 1,
-          yoyo: true,
-          stagger: 0.4,
-          ease: "bounce.in", 
-          force3D: true        
-        });
+  // useGSAP(
+  //   () => {
+  //     const items = gsap.utils.toArray('.product-box');
+  //     items.forEach((item) => {
+  //       gsap.to(item, {
+  //         y: 100,
+  //         opacity: 0,
+  //         duration: 1,
+  //         yoyo: true,
+  //         stagger: 0.4,
+  //         ease: "bounce.in", 
+  //         force3D: true        
+  //       });
 
-        if (inView) {
-          gsap.to(item, {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            scrollTrigger: {
-              trigger: item,
-              start: 'bottom bottom',
-              end: 'top 20%',
-              scrub: true,
-              // markers: true,
-            },
-            stagger: 0.4
-          }); 
-        }
-      });
-    },
-    { scope: containerRef }
-  );
+  //       if (inView) {
+  //         gsap.to(item, {
+  //           y: 0,
+  //           opacity: 1,
+  //           duration: 1,
+  //           scrollTrigger: {
+  //             trigger: item,
+  //             start: 'bottom bottom',
+  //             end: 'top 20%',
+  //             scrub: true,
+  //             // markers: true,
+  //           },
+  //           stagger: 0.4
+  //         }); 
+  //       }
+  //     });
+  //   },
+  //   { scope: containerRef }
+  // );
 
   return (
     <div className={`py-7 ${title ? "space-y-2" : ""}`}>
@@ -59,12 +59,20 @@ const ProductCollection = ({ title, products=[], className }) => {
           className={cn("rounded-sm grid grid-cols-5 gap-x-2 gap-y-2.5", className)}
           ref={containerRef}
         >
-          {products.map((product, idx) => (
+          {products.length ? products.map((product, idx) => (
             <ProductCollectionItem 
               key={`${product.title}${idx}`}
               product={product}
             />
-          ))}
+          )) : (
+            <>
+              {Array.from({ length: 8 }).map((_, idx) => (
+                <ProductCollectionItemSkeleton 
+                  key={idx}
+                />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

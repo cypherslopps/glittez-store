@@ -1,9 +1,13 @@
 import axios from '@/lib/axios';
 import { allProducts } from '@/lib/constants'
+import { removeDuplicateItemsFromArray } from '@/lib/utils';
 import { useEffect, useState } from 'react'
 
 export const useProducts = () => {
   const [products, setProducts] = useState([]);
+  const [productColors, setProductColors] = useState([]);
+  const [productSizes, setProductSizes] = useState([]);
+  const [productPrices, setProductPrices] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -12,10 +16,34 @@ export const useProducts = () => {
         setIsLoading(true);
         const request = await axios.get("/products");
         const response = request.data;
+        let colors = response.map(product => product.attributes.color).flat();
+        let sizes = response.map(product => product.attributes.size).flat();
+        let prices = response.map(product => product.sku[0].price).flat();
+
+        // Remove duplicate values
+        colors = removeDuplicateItemsFromArray(colors);
+        sizes = removeDuplicateItemsFromArray(sizes);
+        prices = removeDuplicateItemsFromArray(prices);
+
         setProducts(prev => ([
           ...prev,
           ...response
         ]));
+
+        setProductColors(prev => ([
+          ...prev,
+          ...colors
+        ]));
+
+        setProductSizes(prev => ([
+          ...prev,
+          ...sizes
+        ]));
+
+        setProductPrices(prev => ([
+          ...prev,
+          ...prices
+        ]))
       } catch (err) {
         console.log(err);
       } finally {
@@ -26,6 +54,9 @@ export const useProducts = () => {
 
   return { 
     products,
+    productColors,
+    productPrices,
+    productSizes,
     isLoading 
   };
 }

@@ -63,12 +63,12 @@ const GuestNavigation = () => {
 
       <Link
         to="/"
-        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-extrabold text-xl flex justify-center items-center'
+        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-extrabold text-xl flex justify-center items-center w-[10%]'
       >
         <img 
           src={Favicon}
           alt="glittez store"
-          className="w-[22%]"
+          className="w-full"
         />
       </Link>
 

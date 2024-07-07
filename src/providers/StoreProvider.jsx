@@ -1,11 +1,13 @@
 import PropTypes from "prop-types";
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const StoreContext = createContext({
     cart: [],
     addToCart: () => {},
     removeItemFromCart: () => {},
     clearCart: () => {},
+    removeItemFromCartWithoutCount: () => {},
     cartCount: 0,
     totalAmount: 0
 });
@@ -13,8 +15,8 @@ const StoreContext = createContext({
 export const StoreProvider = ({ children }) => {
     const localizedCart = localStorage.getItem("glittez_store") ? JSON.parse(localStorage.getItem("glittez_store")) : [];
     const [cart, setCart] = useState(localizedCart);
-    const cartCount = cart.reduce((acc, cur) => acc + cur.count, 0);
-    const totalAmount = cart.reduce((acc, cur) => acc + cur.price * cur.count, 0).toFixed(3);
+    const cartCount = cart.length ? cart.reduce((acc, cur) => acc + cur.count, 0) : 0;
+    const totalAmount = cart.length ? cart.reduce((acc, cur) => acc + cur.sku[0].price * cur.count, 0).toFixed(3) : 0;
 
     useEffect(() => {
         localStorage.setItem('glittez_store', JSON.stringify(cart));
@@ -40,9 +42,23 @@ export const StoreProvider = ({ children }) => {
                 newProduct    
             ]);
         }
+
+        toast(`${product.name} added to cart`);
     };
+
+    // Remove Item from cart
+    const removeItemFromCartWithoutCount = (productId) => {
+        const existingCart = cart.find(item => item.id === productId);
+
+        if (existingCart) {
+            const newCartItems = cart.filter(item => item.id !== productId);
+            setCart(newCartItems);
+        }
+
+        toast(`${existingCart?.name} removed from cart`);
+    } 
     
-    // Add to cart
+    // Remove item from cart using item count
     const removeItemFromCart = (productId) => {
         const existingCart = cart.find(item => item.id === productId);
 
@@ -61,7 +77,7 @@ export const StoreProvider = ({ children }) => {
         }
     };
 
-    // Add to cart
+    // Clear to cart
     const clearCart = () => {
         setCart([]);
     };
@@ -72,6 +88,7 @@ export const StoreProvider = ({ children }) => {
                 cart,
                 addToCart,
                 removeItemFromCart,
+                removeItemFromCartWithoutCount,
                 clearCart,
                 cartCount,
                 totalAmount
@@ -95,3 +112,4 @@ export const useStore = () => {
 
     return storeContext;
 };
+

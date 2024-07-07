@@ -1,21 +1,24 @@
 import { useStore } from '@/providers/StoreProvider'
 import CartCheckoutItem from './CartCheckoutItem'
+import { ScrollArea } from './ui/ScrollArea';
 
 const CartCheckoutCollection = () => {
   const { cart, cartCount, totalAmount } = useStore();
 
   return (
-    <div>
-      <div className='flex flex-col gap-y-5'>
-        {cart.map(cart => (
-          <CartCheckoutItem 
-            key={cart.title}
-            product={cart}
-          />
-        ))}
-      </div>
+    <div className='h-full grid grid-rows-[1fr_max-content]'>
+      <ScrollArea className="h-full">
+        <div className='flex flex-col gap-y-5'>
+          {cart.map(cart => (
+            <CartCheckoutItem 
+              key={cart.title}
+              product={cart}
+            />
+          ))}
+        </div>
+      </ScrollArea>
 
-      <footer className='mt-8 bg-gray-100/50 border border-gray-200 p-2.5 rounded-lg'>
+      <footer className='mt-8 bg-white border border-gray-200 p-2.5 rounded-lg'>
         <ul className='space-y-1.5'>
           <li className='flex items-center justify-between'>
             <p className='text-[.93rem] text-gray-700 font-medium'>

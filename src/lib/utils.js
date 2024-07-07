@@ -57,3 +57,7 @@ export const getDay = (day) => {
   const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
   return days[day];
 }
+
+export const removeDuplicateItemsFromArray = (array) => {
+  return array.filter((item, idx) => array.findIndex(c => c === item) === idx);
+}

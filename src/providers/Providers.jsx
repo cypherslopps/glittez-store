@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Toaster } from "@/components";
 import { StoreProvider } from "./StoreProvider";
 import { SidebarProvider } from "./SidebarProvider";
 import { AuthProvider } from "./AuthProvider";
@@ -10,6 +11,7 @@ const Providers = ({ children }) => {
         <StoreProvider>
           <SidebarProvider>
             {children}
+            <Toaster />
           </SidebarProvider>
         </StoreProvider>
       </AuthProvider>

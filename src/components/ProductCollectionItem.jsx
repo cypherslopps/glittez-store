@@ -6,7 +6,13 @@ import { Icons } from "./Icons";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-const ProductCollectionItem = ({ product={} }) => {
+export const ProductCollectionItemSkeleton = () => {
+  return (
+    <div>Loader</div>
+  )
+}
+
+export const ProductCollectionItem = ({ product={} }) => {
   const { addToCart } = useStore();
 
   return (
@@ -23,24 +29,24 @@ const ProductCollectionItem = ({ product={} }) => {
         </Button>
       </div>
       <div className="h-[25%] py-1.5 px-2 flex flex-col justify-between">
-        <h5 className="text-[.97rem] font-medium">{product?.title}</h5>
+        <h5 className="text-[.97rem] font-medium">{product?.name}</h5>
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col -space-y-1.5">
             <h6 className="text-[.84rem] font-medium text-gray-500">Price:</h6>
-            <span className="font-bold font-nunito text-base inline-block">${product.price}</span>
+            <span className="font-bold font-nunito text-base inline-block">${product?.sku[0]?.price}</span>
           </div>
 
           <div className="space-x-2">
             <Link 
-              to={`/products/category/${product.category}/${product.slug}`} 
+              to={`/products/category/${product.category_id}/${product?.slug}`} 
               className={cn(buttonVariants({ variant: "link" }), "px-0")}
             >
               View
             </Link>
             <Button 
               size="sm"
-              className="rounded-md gap-x-1"
+              className="rounded-md gap-x-1 px-2"
               onClick={() => addToCart(product)}
             >
               <Icons.cart className="w-4 h-4" />
@@ -55,5 +61,3 @@ const ProductCollectionItem = ({ product={} }) => {
 ProductCollectionItem.propTypes = {
   product: PropTypes.object,
 }
-
-export default ProductCollectionItem

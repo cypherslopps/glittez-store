@@ -44,7 +44,7 @@ const UserSettings = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative" tabIndex={0}>
       {doesUserExist ? (
         <Button
           variant="ghost"
