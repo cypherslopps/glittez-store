@@ -2,11 +2,10 @@ import { SEO } from '@/components'
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input'
 import useForm from '@/hooks/useForm'
-import axios from '@/lib/axios';
-import { errorEntries } from '@/lib/utils';
 import { validateEmail, validatePassword } from '@/lib/validation';
 import { useAuth } from '@/providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import Favicon from "@/assets/images/favicon.png";
 
 const AdminLogin = () => {
     const navigate = useNavigate();
@@ -42,11 +41,19 @@ const AdminLogin = () => {
                 description="Access dashboard"
             />
 
-            <h1 className='text-3xl font-extrabold'>Admin Login</h1>
+            <header className='flex flex-col items-center -space-y-0.5'>
+                <img 
+                    src={Favicon}
+                    alt="favicon"
+                    className='w-[15%] md:w-[6%]'
+                />
+
+                <h1 className='text-[1.65rem] sm:text-3xl font-extrabold'>Admin Login</h1>
+            </header>
 
             <form 
                 onSubmit={login}
-                className='flex flex-col w-[34vw] gap-y-3'
+                className='flex flex-col w-11/12  xsl:w-[75vw] sm:w-[60vw] lg:w-[34vw] gap-y-3'
             >
                 <div className='space-y-3.5'>
                     <Input 
@@ -71,7 +78,7 @@ const AdminLogin = () => {
                 </div>
 
                 <Button 
-                    className="w-full flex py-3 px-5 text-md font-medium h-max rounded-lg"
+                    className="w-full flex py-2.5 md:py-3 px-5 text-md font-medium h-max rounded-lg"
                     isLoading={isLoading}
                 >
                     Submit

@@ -1,7 +1,6 @@
 import { Checkbox } from "../ui/Checkbox";
 import { Button } from "../ui/Button";
 import { Icons } from "../Icons";
-import { getDate } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -189,13 +188,22 @@ export const columns = [
             </Button>
 
             <Link 
-              to={`/dashboard/subcategory/${product?.slug}/edit`}
+              to={`/dashboard/products/${product?.slug}/edit`}
               title={`Edit ${product.slug}`}
               className="flex items-center gap-x-1.5 font-medium hover:underline"
             >
               <Icons.link className="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition-colors duration-150" />
               Edit
               <span className="sr-only">Edit Link</span>
+            </Link>
+
+            <Link 
+              to={`/dashboard/products/${product.slug}`}
+              title={`Edit ${product.slug}`}
+              className="flex items-center gap-x-1.5 font-medium hover:underline"
+            >
+              View
+              <span className="sr-only">View</span>
             </Link>
           </div>
         )

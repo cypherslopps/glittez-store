@@ -11,7 +11,7 @@ const Hamburger = ({ className }) => {
     <Button
         variant="transparent"
         size="none"
-        className={cn("shrink-none p-1.5 hover:bg-primary-500/15 rounded-lg transition-colors duration-300 md:hidden", className)}
+        className={cn("shrink-none p-1.5 hover:bg-primary-500/15 rounded-lg transition-colors duration-300 md:hidden z-[4100]", className)}
         onClick={toggleSidebar}
     >
         {isOpen ? (

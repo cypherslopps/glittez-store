@@ -34,7 +34,7 @@ const ShopSidebar = () => {
               {!isProductsCategoriesLoading ? productCategories.map(category => (
                 <li key={category.name}>
                   <Link 
-                    to={`/products/category/${category.name}`}
+                    to={`/products/category/${category.slug}`}
                     className='text-md font-medium hover:underline text-gray-700'
                   >
                     {category.name}

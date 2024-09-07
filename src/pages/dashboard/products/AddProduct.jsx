@@ -6,6 +6,7 @@ import useForm from '@/hooks/useForm'
 import axios from '@/lib/axios'
 import { errorEntries } from '@/lib/utils'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 const AddProduct = () => {
   const [image, setImage] = useState(null);
@@ -70,14 +71,12 @@ const AddProduct = () => {
         size: data.size,
         image
       };
-      console.log(payload);
       Object.entries(payload).map(([name, value]) => formData.append(name, value));
 
       if (Object.values(payload).every(value => value !== "")) {
         setIsLoading(true);
         const request = await axios.post('/products', formData);
-        const response = request.data;
-        console.log(response.message);
+        const { message } = request.data;
 
         setData(prev => ({
           ...prev,
@@ -92,6 +91,7 @@ const AddProduct = () => {
         }));
         setCategoryId("");
         setSubCategoryId("");
+        toast(message);
       }
     } catch (err) {
       const error = err.response.data;

@@ -1,6 +1,8 @@
 import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import { GuestNavigation, GuestFooter, NotFound } from "@/components";
+import { GuestNavigation, GuestFooter, NotFound, GuestPanel } from "@/components";
+import { useSidebar } from '@/providers/SidebarProvider';
+import { AnimatePresence } from 'framer-motion';
 
 const Home = lazy(() => import("./Home"));
 const ProductsOverview = lazy(() => import("./ProductsOverview"));
@@ -8,6 +10,9 @@ const Checkout = lazy(() => import("./Checkout"));
 const Shop = lazy(() => import("./Shop"));
 
 const Guest = () => {
+  const { isOpen } = useSidebar();
+  console.log(isOpen);
+
   return (
     <>
       <main className='px-2 sm:px-4 md:px-6'>
@@ -24,7 +29,13 @@ const Guest = () => {
         </main>
       </main>
 
-    <GuestFooter />
+      <AnimatePresence>
+        {isOpen ? (
+          <GuestPanel />
+        ) : null}
+      </AnimatePresence>
+
+      <GuestFooter />
     </>
   )
 }

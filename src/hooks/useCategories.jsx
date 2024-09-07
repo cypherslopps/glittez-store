@@ -1,5 +1,6 @@
 import axios from '@/lib/axios';
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner';
 
 export const useCategories = () => {
   const [productCategories, setProductCategories] = useState([]);
@@ -30,8 +31,8 @@ export const useCategories = () => {
 }
 
 export const useSingleCategory = (slug) => {
-  const [productCategories, setProductCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [isLoading, setIsLoading] = useState({});
 
   useEffect(() => {
     if (slug) {
@@ -40,12 +41,12 @@ export const useSingleCategory = (slug) => {
           setIsLoading(true);
           const request = await axios(`/categories/${slug}`);
           const response = request.data;
-          setProductCategories(prev => ([
+          setCategory(prev => ({
             ...prev,
             ...response
-          ]));
+          }));
         } catch (err) {
-          console.log(err);
+          toast("There was an error fetching category");
         } finally {
           setIsLoading(false)
         }
@@ -54,13 +55,13 @@ export const useSingleCategory = (slug) => {
   }, [slug]);
 
   return {
-    productCategories,
-    isProductsCategoriesLoading: isLoading
+    category,
+    isCategoryLoading: isLoading
   }
 }
 
 export const useSubCategories = () => {
-  const [isLoading, setIsLoading] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
 
   useEffect(() => {
@@ -88,20 +89,20 @@ export const useSubCategories = () => {
 }
 
 export const useSingleSubCategory = (slug) => {
-  const [productCategories, setProductCategories] = useState([]);
-  const [isLoading, setIsLoading] = useState([]);
+  const [productSubCategories, setProductSubCategories] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (slug) {
       (async () => {
         try {
           setIsLoading(true);
-          const request = await axios(`/subcategoris/${slug}`);
+          const request = await axios(`/subcategories/${slug}`);
           const response = request.data;
-          setProductCategories(prev => ([
+          setProductSubCategories(prev => ({
             ...prev,
             ...response
-          ]));
+          }));
         } catch (err) {
           console.log(err);
         } finally {
@@ -112,7 +113,7 @@ export const useSingleSubCategory = (slug) => {
   }, [slug]);
 
   return {
-    productCategories,
-    isProductsCategoriesLoading: isLoading
+    productSubCategories,
+    isProductsSubCategoriesLoading: isLoading
   }
 }

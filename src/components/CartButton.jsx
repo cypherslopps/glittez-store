@@ -22,7 +22,7 @@ const CartButton = () => {
         ) : null}
       </Button>
 
-      <CartCollection isOpen={isCartOpen} />
+      <CartCollection closeCart={() => setIsCartOpen(false)} isOpen={isCartOpen} />
     </div>
   )
 }

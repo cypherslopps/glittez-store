@@ -14,9 +14,13 @@ import { Icons } from './Icons';
 import { navigationLinks } from '@/lib/constants';
 import { Button } from './ui/Button';
 import CartButton from './CartButton';
-import FavoriteButton from './FavoriteButton';
 import UserSettings from './UserSettings';
 import Favicon from "../assets/images/favicon-text.png";
+import Favicon2 from "../assets/images/favicon.png";
+// import InstantSearchBox from './InstantSearchBox';
+import NavigationDropdown from './NavigationDropdown';
+import { Hamburger } from '.';
+
 
 const GuestNavigationLink = ({ title, route, hasDropdown }) => {
   const { pathname } = useLocation();
@@ -24,11 +28,11 @@ const GuestNavigationLink = ({ title, route, hasDropdown }) => {
   const isActive = pathname === route ? "underline font-bold" : "text-gray-900/90 font-medium";
   
   return (
-    <li>
+    <li className='relative'>
       <Link
         to={route}
         className={`flex items-center relative py-0.5 text-[.93rem] ${isActive}`}
-        onClick={() => setIsMenuOpen(prev => !prev)}
+        onClick={() => hasDropdown && setIsMenuOpen(prev => !prev)}
       >
         {title}
         {hasDropdown ? (
@@ -38,6 +42,13 @@ const GuestNavigationLink = ({ title, route, hasDropdown }) => {
           </>
         ) : null}
       </Link>
+      
+      {(hasDropdown) && (
+        <NavigationDropdown 
+          isMenuOpen={isMenuOpen} 
+          setIsMenuOpen={setIsMenuOpen}
+        />
+      )}
     </li>
   )
 }
@@ -51,8 +62,8 @@ GuestNavigationLink.propTypes = {
 const GuestNavigation = () => {
 
   return (
-    <nav className="flex items-center justify-between py-3 border-b border-gray-400/35 relative">
-      <ul className='flex items-center gap-x-4'>
+    <nav className="flex items-center justify-between py-1.5 sm:py-3 border-b border-gray-400/35 relative">
+      <ul className='hidden md:flex items-center gap-x-4'>
         {navigationLinks.map(link => (
           <GuestNavigationLink 
             key={link.title}
@@ -61,18 +72,33 @@ const GuestNavigation = () => {
         ))}
       </ul>
 
-      <Link
-        to="/"
-        className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-extrabold text-xl flex justify-center items-center w-[10%]'
-      >
-        <img 
-          src={Favicon}
-          alt="glittez store"
-          className="w-full"
-        />
-      </Link>
+      {/* Favicons */}
+      <div>
+        <Link
+          to="/"
+          className='hidden md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 font-extrabold text-xl md:flex md:justify-center md:items-center sm:w-[15%] h-[30%] md:w-[12%] md:h-[60%]'
+        >
+          <img 
+            src={Favicon}
+            alt="glittez store"
+            className="w-full object-cover"
+          />
+        </Link>
+
+        <Link
+          to="/"
+          className='font-extrabold text-xl flex justify-center items-center md:hidden'
+        >
+          <img 
+            src={Favicon2}
+            alt="glittez store"
+            className="max-w-[10rem] h-14 object-cover"
+          />
+        </Link>
+      </div>
 
       <div className='flex items-center gap-x-1.5'>
+        {/* <InstantSearchBox /> */}
         <Button 
           variant="ghost"
           size="ghost"
@@ -82,12 +108,12 @@ const GuestNavigation = () => {
 
         {/* User Settings */}
         <UserSettings />
-        
-        {/* Favorites Button */}
-        <FavoriteButton />
 
         {/* Cart Button */}
         <CartButton />
+
+        {/* Hamburger */}
+        <Hamburger />
       </div>
     </nav>
   )

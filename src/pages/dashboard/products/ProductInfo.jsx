@@ -3,26 +3,30 @@ import { useNavigate, useParams } from 'react-router-dom'
 import ProductImage from "../../../assets/images/product-1.jpg";
 import { Button } from '@/components/ui/Button';
 import { Icons } from '@/components/Icons';
+import { useSingleProduct, useSkus } from '@/hooks/useProducts';
 
 const ProductInfo = () => {
   const navigate = useNavigate();
-  const { productId } = useParams();
+  const { productSlug } = useParams();
+  const { product, isLoading: isProductFetching } = useSingleProduct(productSlug);
+  const { productSKUs, isProductSkusLoading } = useSkus(productSlug);
 
   return (
     <>
       <SEO 
-        title={`Product ${productId} Overview`}
+        title={`Product ${productSlug} Overview`}
         description="Product overview"
       />
 
       <section className='mb-7 space-y-6'>
         <div className='flex items-center justify-between'>
-          <h2 className='text-lg font-extrabold'>Product {productId}</h2>
+          <h2 className='text-lg font-extrabold'>Product {product?.id}</h2>
           <div className='flex items-center gap-x-1'>
             <Button 
               variant="black"
               className="gap-x-1 font-medium"
-              onClick={() => navigate(`/dashboard/products/${productId}/skus/create`)}
+              disabled={isProductFetching}
+              onClick={() => navigate(`/dashboard/products/skus/${product.id}/create`)}
             >
               <Icons.plus className='w-[1.02rem] h-[1.02rem]' />
               Add SKU
@@ -33,16 +37,16 @@ const ProductInfo = () => {
         </div>
         
         <div className='grid grid-cols-[40%_60%] gap-x-3'>
-          <figure className='h-[70vh] bg-gray-100 border border-gray-300/60 select-none'>
+          <figure className='h-[70vh] bg-gray-100 border border-gray-300/20 rounded-md select-none'>
             <img 
               src={ProductImage}
-              alt={`Product ${productId}`}
+              alt={`Product ${product?.name}`}
               className='w-full h-full object-cover'
             />
           </figure>
 
           <div className=''>
-            <p className='text-[1.02rem] text-gray-700'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi, eum repudiandae ab magni quaerat repellat deserunt error adipisci! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis non hic, officiis asperiores labore quia! Mollitia illo nobis esse.</p>
+            <p className='text-[1.02rem] text-gray-700'>{product?.description}</p>
 
             <div className='mt-3 space-y-1'> 
               <h5 className='font-bold'>Colors</h5>
@@ -81,9 +85,10 @@ const ProductInfo = () => {
 
       <section className='space-y-2'>
         <h3 className='text-lg font-extrabold'>Product SKUs</h3>
+
         <SKUsTable 
-          data={[]}
-          isLoading={false}
+          data={productSKUs}
+          isLoading={isProductSkusLoading}
         />
       </section>
     </>

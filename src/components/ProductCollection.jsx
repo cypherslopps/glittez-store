@@ -6,7 +6,7 @@ import { ProductCollectionItem, ProductCollectionItemSkeleton } from "./ProductC
 import { cn } from "@/lib/utils";
 import { useRef } from "react";
 
-const ProductCollection = ({ title, products=[], className }) => {
+const ProductCollection = ({ title, isLoading, products=[], className }) => {
   const { ref, inView } = useInView({
     threshold: 0,
   });
@@ -50,29 +50,29 @@ const ProductCollection = ({ title, products=[], className }) => {
   return (
     <div className={`py-7 ${title ? "space-y-2" : ""}`}>
       {title && (
-        <h1 className="text-lg font-extrabold tracking-tight uppercase">{title}</h1>
+        <h1 className="text-base sm:text-lg font-extrabold tracking-tight uppercase">{title}</h1>
       )}
 
 
       <div ref={ref}>
         <div 
-          className={cn("rounded-sm grid grid-cols-5 gap-x-2 gap-y-2.5", className)}
+          className={cn("rounded-sm grid grid-cols-1 px-2 sm:px-0 xls:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-2.5 gap-y-3.5 md:gap-x-2 md:gap-y-2.5", className)}
           ref={containerRef}
         >
-          {products.length ? products.map((product, idx) => (
+          {!isLoading && products.length ? products.map((product, idx) => (
             <ProductCollectionItem 
               key={`${product.title}${idx}`}
               product={product}
             />
-          )) : (
+          )) : isLoading && !products.length ? (
             <>
-              {Array.from({ length: 8 }).map((_, idx) => (
+              {Array.from({ length: 10 }).map((_, idx) => (
                 <ProductCollectionItemSkeleton 
                   key={idx}
                 />
               ))}
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

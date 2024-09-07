@@ -14,7 +14,7 @@ const AddCategory = () => {
 
   useEffect(() => {
     if (data.name) {
-        const replaceWhiteSpaceWithHyphens = data.name.replaceAll(" ", "-");
+        const replaceWhiteSpaceWithHyphens = data.name.trim().replaceAll(" ", "-");
         setData(prev => ({
             ...prev,
             slug: replaceWhiteSpaceWithHyphens.toLowerCase()

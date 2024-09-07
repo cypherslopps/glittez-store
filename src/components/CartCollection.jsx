@@ -18,7 +18,7 @@ const CartCollectionVariant = {
   }
 }
 
-const CartCollection = ({ isOpen }) => {
+const CartCollection = ({ isOpen, closeCart }) => {
   const navigate = useNavigate();
   const { cart, cartCount, totalAmount } = useStore();
 
@@ -29,7 +29,7 @@ const CartCollection = ({ isOpen }) => {
         initial="hidden"
         animate={isOpen ? "show" : "hidden"}
         exit="hidden"
-        className={`absolute -bottom-[23.8rem] z-[1000] -left-[17.5rem] -translate-x-1/2 bg-white w-80 py-2 px-2.5 border border-gray-200 rounded-md space-y-1.5 ${isOpen ? "" : "pointer-events-none"}`}
+        className={`absolute -bottom-[23.8rem] z-[10000] right-0 sm:-left-[17.5rem] -translate-x-1/2 bg-white w-64 xls:w-80 py-2 px-2.5 border border-gray-200 rounded-md space-y-1.5 ${isOpen ? "" : "pointer-events-none"}`}
       >
         <ScrollArea className="h-64">
           <div className="flex flex-col gap-y-1">
@@ -62,7 +62,10 @@ const CartCollection = ({ isOpen }) => {
           <Button 
             size="md"
             className="w-full"
-            onClick={() => navigate("/cart/checkout")}
+            onClick={() => {
+              closeCart();
+              navigate("/cart/checkout")
+            }}
           >
             Checkout
           </Button>
@@ -73,7 +76,8 @@ const CartCollection = ({ isOpen }) => {
 }
 
 CartCollection.propTypes = {
-  isOpen: PropTypes.bool
+  isOpen: PropTypes.bool,
+  closeCart: PropTypes.func
 }
 
 export default CartCollection

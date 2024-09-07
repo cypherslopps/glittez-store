@@ -19,6 +19,25 @@ export const validateEmail = (email, setErrors) => {
     }
 }
 
+export const validateText = (value, name, regex, error, setErrors) => {
+    if (!value) {
+        setErrors(prev => ({
+            ...prev,
+            [name]: `Fill in ${name} field`
+        }));
+    } else if (!regex.exec(value)) {
+        setErrors(prev => ({
+            ...prev,
+            [name]: error
+        }));
+    } else {
+        setErrors(prev => ({
+            ...prev,
+            [name]: ""
+        }));
+    }
+}
+
 export const validatePassword = (password, setErrors) => {
     const passwordRegex = /^[\w@!#$%^&*)/(]{8,}$/ig;
     const hasSymbols = ["@", "!", "#", "$", "%", "^", "&", "*", ")", "("].some(symbol => password.includes(symbol));

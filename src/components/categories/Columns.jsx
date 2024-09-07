@@ -3,6 +3,7 @@ import { Button } from "../ui/Button";
 import { Icons } from "../Icons";
 import { Link } from "react-router-dom";
 import axios from "@/lib/axios";
+import { toast } from "sonner";
 
 export const columns = [
     {
@@ -74,13 +75,12 @@ export const columns = [
           )
         },
         cell: ({ row }) => {
-          const product = row.original;
+          const category = row.original;
 
           const deleteCategory = async () => {
             try {
-              const request = await axios.delete(`/categories/${product.slug}/delete`);
-              const response = request.data;
-              console.log(response);
+              await axios.delete(`/categories/${category.slug}/delete`);
+              toast(`${category.name} deleted successfully`);
               window.location.reload();
             } catch (err) {
               console.log(err);
@@ -92,18 +92,18 @@ export const columns = [
               <Button
                 variant="transparent"
                 size="none"
-                title={`Delete ${product.slug}`}
+                title={`Delete ${category.slug}`}
                 onClick={deleteCategory}
                 className="gap-x-1 font-medium hover:text-rose-500 transition-colors duration-150 group"
               >
                 <Icons.trash className="w-5 h-5 text-gray-600 -mt-0.5 group-hover:text-rose-500 transition-colors duration-150" />
                 Delete
-                <span className="sr-only">Delete {product.name} Category</span>
+                <span className="sr-only">Delete {category.name} Category</span>
               </Button>
 
               <Link 
-                to={`/dashboard/categories/${product?.slug}/edit`}
-                title={`Edit ${product.slug}`}
+                to={`/dashboard/categories/${category?.slug}/edit`}
+                title={`Edit ${category.slug}`}
                 className="flex items-center gap-x-1.5 font-medium hover:underline"
               >
                 <Icons.link className="w-5 h-5 text-gray-600 group-hover:text-blue-400 transition-colors duration-150" />

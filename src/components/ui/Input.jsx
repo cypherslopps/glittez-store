@@ -21,10 +21,10 @@ export const Input = ({ label, error, className, containerClassName, type, ...pr
                 role="group"
                 className={`flex flex-col border ${error ? "border-rose-500" : "border-gray-400/45"} rounded-lg p-2 relative`}
             >
-                <label className={`absolute -translate-y-1/2 pointer-events-none text-[.92rem] transition-all py-0 duration-300 ${props.disabled ? `${error ? "text-rose-500/60" : "text-black/50"} ` : `${error ? "text-rose-500" : "text-black"}`} ${isFloating || props.value ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
+                <label className={`absolute -translate-y-1/2 pointer-events-none text-[.9rem] sm:text-[.92rem] transition-all py-0 duration-300 ${props.disabled ? `${error ? "text-rose-500/60" : "text-black/50"} ` : `${error ? "text-rose-500" : "text-black"}`} ${isFloating || props.value ? "scale-[.91] -top-[2%] left-[0.3vw] font-semibold" : "top-1/2 left-[0.5vw]"} px-2 bg-white`}>{label}</label>
                 <input 
                     type={type === "password" ? passwordType : type}
-                    className={cn(`outline-none border-none ${type === "password" ? "pl-1.5 pr-7" : "px-1.5"} h-7 text-[.94rem] disabled:opacity-60`, className)}
+                    className={cn(`outline-none border-none ${type === "password" ? "pl-1.5 pr-7" : "px-1.5"} h-7 text-[.92rem] sm:text-[.94rem] disabled:opacity-60`, className)}
                     onFocus={() => setIsFloating(true)}
                     onBlur={() => props.value === "" ? setIsFloating(false) : setIsFloating(true)}
                     {...props}
@@ -112,15 +112,15 @@ export const Select = ({ label, error, options, optionLabel="", className, conta
                     onBlur={() => props.value === "" ? setIsFloating(false) : setIsFloating(true)}
                     {...props}
                 >
-                    <option>{optionLabel}</option>
-                    {options.map(option => (
+                    {optionLabel ? <option value="">{optionLabel}</option> : null}
+                    {options.length ? options.map(option => (
                         <option
                             key={option}
-                            value={option.toLowerCase()}
+                            value={option?.toLowerCase()}
                         >
                             {option}
                         </option>
-                    ))}
+                    )) : null}
                 </select> 
             </div>
 

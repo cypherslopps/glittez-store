@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 const axios = Axios.create({
-    baseURL: `${import.meta.env.VITE_GLITTEZ_BACKEND_API}`
+    baseURL: `${import.meta.env.VITE_GLITTEZ_BACKEND_API}`,
 });
 
 axios.interceptors.request.use(config => {

@@ -1,7 +1,7 @@
 import axios from '@/lib/axios';
-import { allProducts } from '@/lib/constants'
 import { removeDuplicateItemsFromArray } from '@/lib/utils';
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner';
 
 export const useProducts = () => {
   const [products, setProducts] = useState([]);
@@ -66,19 +66,13 @@ export const useSingleProduct = (slug) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const singleProduct = allProducts.filter(product => product.slug === slug)[0];
-    setProduct(singleProduct);
-
     if (slug) {
       (async () => {
         try {
           setIsLoading(true);
           const request = await axios(`/products/${slug}`);
           const response = request.data;
-          console.log(response);
-          const singleProduct = allProducts.filter(product => product.slug === slug);
-          console.log(slug)
-          setProduct(singleProduct);
+          setProduct(response);
         } catch (err) {
           console.log(err);
         } finally {
@@ -92,5 +86,63 @@ export const useSingleProduct = (slug) => {
   return {
     product,
     isLoading
+  }
+}
+
+export const useSkus = (productSlug) => {
+  const [skus, setSkus] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (productSlug) {
+      (async () => {
+        try {
+          setIsLoading(true);
+          const { data } = await axios(`/skus/${productSlug}/variants`);
+          setSkus(prev => ([
+            ...prev,
+            ...data
+          ]));
+        } catch (err) {
+          toast("There was an error fetching SKUs");
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
+  }, [productSlug]);
+
+  return {
+    productSKUs: skus,
+    isProductSkusLoading: isLoading
+  }
+}
+
+export const useSku = (skuCode) => {
+  const [sku, setSku] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (skuCode) {
+      (async () => {
+        try {
+          setIsLoading(true);
+          const { data } = await axios(`/skus/${skuCode}`);
+          setSku(prev => ({
+            ...prev,
+            ...data
+          }));
+        } catch (err) {
+          toast("There was an error fetching SKU");
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
+  }, [skuCode]);
+
+  return {
+    productSKU: sku,
+    isProductSkuLoading: isLoading
   }
 }

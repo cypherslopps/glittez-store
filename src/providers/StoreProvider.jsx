@@ -15,8 +15,8 @@ const StoreContext = createContext({
 export const StoreProvider = ({ children }) => {
     const localizedCart = localStorage.getItem("glittez_store") ? JSON.parse(localStorage.getItem("glittez_store")) : [];
     const [cart, setCart] = useState(localizedCart);
-    const cartCount = cart.length ? cart.reduce((acc, cur) => acc + cur.count, 0) : 0;
-    const totalAmount = cart.length ? cart.reduce((acc, cur) => acc + cur.sku[0].price * cur.count, 0).toFixed(3) : 0;
+    const cartCount = cart.length ? cart.reduce((acc, cur) => acc + cur?.count, 0) : 0;
+    const totalAmount = cart.length ? cart.reduce((acc, cur) => acc + cur?.sku[0]?.price * cur?.count, 0).toFixed(3) : 0;
 
     useEffect(() => {
         localStorage.setItem('glittez_store', JSON.stringify(cart));

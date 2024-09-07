@@ -1,12 +1,56 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from './ui/Button';
 import { Icons } from './Icons';
 import { Skeleton } from './ui/Skeleton';
+import axios from '@/lib/axios';
 
 const OverviewStats = () => {
-    const [isLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [productsCount, setProductsCount] = useState(0);
+    const [ordersCount, setOrdersCount] = useState(0);
+    const [usersCount, setUsersCount] = useState(0);
+    const [categoriesCount, setCategoriesCount] = useState(0);
     const [activeTab, setActiveTab] = useState("day"); 
     const status = "success";
+
+    useEffect(() => {
+        (async () => {
+            try {
+                setIsLoading(true);
+
+                const [productsRequest, ordersRequest, usersRequest, categoriesRequest] = await Promise.all([
+                    axios("/products"),
+                    axios("/orders"),
+                    axios("/users"),
+                    axios("/categories")
+                ]);
+
+                let productsResponse = productsRequest.data;
+                let ordersResponse = ordersRequest.data;
+                let usersResponse = usersRequest.data;
+                let categoriesResponse = categoriesRequest.data;
+
+                if (activeTab === "day") {
+                    
+                } else if(activeTab === "week") {
+
+                } else if (activeTab === "month") {
+
+                } else if (activeTab === "year") {
+
+                }
+
+                setProductsCount(productsResponse.length);
+                setOrdersCount(ordersResponse.length);
+                setCategoriesCount(categoriesResponse.length);
+                setUsersCount(usersResponse.length);
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setIsLoading(false);
+            }
+        })();
+    }, [activeTab]);
 
     return (
         <div className='space-y-2 mt-7'>
@@ -31,11 +75,11 @@ const OverviewStats = () => {
             <div className="border border-gray-200 p-4 rounded-md shadow-md shadow-black/5 grid grid-cols-2">
                 <blockquote className='flex items-center justify-between border-b border-r border-gray-200 pb-5 pr-5'>
                     <div className='flex flex-col gap-y-3'>
-                        <h5 className='text-md font-medium text-gray-700'>Total Views</h5>
+                        <h5 className='text-md font-medium text-gray-700'>Total Products</h5>
                         {isLoading ? (
                             <Skeleton className="w-full h-12" />
                         ) : (
-                            <h1 className='text-5xl font-extrabold -mt-3.5'>5.094</h1>
+                            <h1 className='text-5xl font-extrabold -mt-3.5'>{productsCount.toFixed(3).toLocaleString()}</h1>
                         )}
                         <p className='text-sm text-gray-700/90'>From last 732 (last 7 days)</p>
                     </div>
@@ -52,11 +96,11 @@ const OverviewStats = () => {
 
                 <blockquote className='flex items-center justify-between border-b border-gray-200 pl-5'>
                     <div className='flex flex-col gap-y-3'>
-                        <h5 className='text-md font-medium text-gray-700'>Total Views</h5>
+                        <h5 className='text-md font-medium text-gray-700'>Total Orders</h5>
                         {isLoading ? (
                             <Skeleton className="w-full h-12" />
                         ) : (
-                            <h1 className='text-5xl font-extrabold -mt-3.5'>5.094</h1>
+                            <h1 className='text-5xl font-extrabold -mt-3.5'>{ordersCount.toFixed(3).toLocaleString()}</h1>
                         )}
                         <p className='text-sm text-gray-700/90'>From last 732 (last 7 days)</p>
                     </div>
@@ -73,11 +117,11 @@ const OverviewStats = () => {
 
                 <blockquote className='flex items-center justify-between border-r border-gray-200 pr-5 pt-5'>
                     <div className='flex flex-col gap-y-3'>
-                        <h5 className='text-md font-medium text-gray-700'>Total Views</h5>
+                        <h5 className='text-md font-medium text-gray-700'>Total Users</h5>
                         {isLoading ? (
                             <Skeleton className="w-full h-12" />
                         ) : (
-                            <h1 className='text-5xl font-extrabold -mt-3.5'>5.094</h1>
+                            <h1 className='text-5xl font-extrabold -mt-3.5'>{usersCount.toFixed(3).toLocaleString()}</h1>
                         )}
                         <p className='text-sm text-gray-700/90'>From last 732 (last 7 days)</p>
                     </div>
@@ -94,11 +138,11 @@ const OverviewStats = () => {
 
                 <blockquote className='flex items-center justify-between pt-5 pl-5'>
                     <div className='flex flex-col gap-y-3'>
-                        <h5 className='text-md font-medium text-gray-700'>Total Views</h5>
+                        <h5 className='text-md font-medium text-gray-700'>Total Categories</h5>
                         {isLoading ? (
                             <Skeleton className="w-full h-12" />
                         ) : (
-                            <h1 className='text-5xl font-extrabold -mt-3.5'>5.094</h1>
+                            <h1 className='text-5xl font-extrabold -mt-3.5'>{categoriesCount.toFixed(3).toLocaleString()}</h1>
                         )}
                         <p className='text-sm text-gray-700/90'>From last 732 (last 7 days)</p>
                     </div>

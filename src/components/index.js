@@ -20,6 +20,7 @@ import SubCategoriesTable from "./subcategories/SubCategoriesTable";
 import OrdersTable from "./orders/OrdersTable";
 import SKUsTable from "./skus/SKUs";
 import { Toaster } from "./ui/Sonner";
+import GuestPanel from "./GuestPanel";
 
 export {
     Toaster,
@@ -28,6 +29,7 @@ export {
     GuestNavigation,
     GuestFooter,
     CartButton,
+    GuestPanel,
     SEO,
     NotFound,
     BreadCrumbs,

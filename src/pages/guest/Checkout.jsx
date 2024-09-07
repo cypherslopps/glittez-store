@@ -1,7 +1,8 @@
 import { BreadCrumbs, CartCheckoutCollection, SEO } from "@/components"
 import { Icons } from "@/components/Icons";
 import { Button, buttonVariants } from "@/components/ui/Button";
-import { FileInput, Input, Select } from "@/components/ui/Input";
+import { Input, Select } from "@/components/ui/Input";
+import { useCities, useCountries, useStates } from "@/hooks/useCountries";
 import useForm from "@/hooks/useForm";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/providers/AuthProvider";
@@ -17,7 +18,7 @@ const Checkout = () => {
     const { totalAmount } = useStore();
     const [activeCheckout, setActiveCheckout] = useState("information");
     const doesUserExist = Object.values(user).length ? true : false;
-    const [image, setImage] = useState(null);
+    // const [image, setImage] = useState(null);
     const { data: shippingData, errors: shippingDataErrors, handleChange: shippingDataChange  } = useForm({
         phone: "",
         address: "",
@@ -28,6 +29,10 @@ const Checkout = () => {
         city: "",
     });
 
+    const { countries } = useCountries();
+    const states = useStates(shippingData.country);
+    const cities = useCities(shippingData.country, shippingData.state)
+
     const submitShippingInfo = async (e) => {
         e.preventDefault();
 
@@ -35,7 +40,7 @@ const Checkout = () => {
             console.log(shippingData)
 
             try {
-                setActiveCheckout("payload");
+                // setActiveCheckout("payload");
             } catch (err) {
                 console.log(err);
             }
@@ -53,16 +58,16 @@ const Checkout = () => {
 
             <BreadCrumbs />
 
-            <main className="grid grid-cols-2 gap-x-4">
+            <main className="grid grid-cols-1 gap-y-6 px-1 xl:px-3 md:px-0 md:gap-y-0 md:grid-cols-2 md:gap-x-4">
                 {/* Checkout form */}
                 <section className="space-y-5">
                     <header className="-space-y-0.5">
-                        <h1 className="text-3xl font-extrabold">Checkout</h1>
+                        <h1 className="text-[1.7rem] xl:text-3xl font-extrabold">Checkout</h1>
                         <ul className="flex items-center gap-x-1">
                             {checkoutList.map((list, idx) => (
                                 <li 
                                     key={list}
-                                    className={`flex items-center gap-x-1 ${list === activeCheckout ? "font-semibold" : "text-gray-800/70"} capitalize text-[.94rem]`}
+                                    className={`flex items-center gap-x-1 ${list === activeCheckout ? "font-semibold" : "text-gray-800/70"} capitalize text-[.92rem] sm:text-[.94rem]`}
                                 >
                                     {list}
                                     {(idx) !== (checkoutList.length - 1) ? (
@@ -109,8 +114,9 @@ const Checkout = () => {
                                         type="text"
                                         name="country"
                                         label="Country"
-                                        options={["USA", "Belgium"]}
+                                        options={countries}
                                         value={shippingData.country}
+                                        optionLabel="Select Country"
                                         onChange={shippingDataChange}
                                         error={shippingDataErrors.country}
                                     />
@@ -118,7 +124,7 @@ const Checkout = () => {
                                     <Select 
                                         name="state"
                                         label="State"
-                                        options={["GG", "Nagi"]}
+                                        options={states}optionLabel="Select State"
                                         value={shippingData.state}
                                         onChange={shippingDataChange}
                                         error={shippingDataErrors.state}
@@ -127,7 +133,8 @@ const Checkout = () => {
                                     <Select 
                                         name="city"
                                         label="City"
-                                        options={["GG", "Nagi"]}
+                                        optionLabel="Select Country"
+                                        options={cities}
                                         value={shippingData.city}
                                         onChange={shippingDataChange}
                                         shoperror={shippingDataErrors.city}
@@ -145,7 +152,7 @@ const Checkout = () => {
                             </div>
 
                             <div className="space-y-2.5">
-                                <h4 className="text-[.95rem] font-semibold text-gray-700">Shipping Method</h4>
+                                <h4 className="text-[.92rem] sm:text-[.95rem] font-semibold text-gray-700">Shipping Method</h4>
 
                                 <div className="border border-gray-400/45 divide-y divide-gray-400/45 py-4 px-4 rounded-md space-y-4">
                                     <label 
@@ -190,14 +197,14 @@ const Checkout = () => {
 
                             {doesUserExist ? (
                                 <Button
-                                    className="w-full h-max py-2.5"
+                                    className="w-full h-max py-2 sm:py-2.5"
                                 >
                                     Continue to payment
                                 </Button>
                             ) : (
                                 <Button 
                                     type="button"
-                                    className="w-full h-max py-2.5"
+                                    className="w-full h-max py-2 sm:py-2.5"
                                     onClick={() => navigate("/user/login")}
                                 >
                                     Log in
@@ -207,18 +214,18 @@ const Checkout = () => {
                     ) : (
                         <div className="pt-2 space-y-6">
                             <div className="space-y-2">
-                                <h3 className="text-base font-medium">Total Amount to pay: <strong className="font-nunito">${totalAmount}</strong></h3>
+                                <h3 className=" text-md sm:text-base font-medium">Total Amount to pay: <strong className="font-nunito">${totalAmount}</strong></h3>
                                 <Link
-                                    to="https://pay.c14.money?targetAmount=100&targetAssetId=38ee0010-ca62-41da-822e-ff8a9bfa0914&quoteAmountLock=true&targetAssetIdLock=true"
+                                    to={`https://pay.c14.money?targetAmount=${totalAmount}&targetAssetId=38ee0010-ca62-41da-822e-ff8a9bfa0914&quoteAmountLock=true&targetAssetIdLock=true`}
                                     target="_blank"
-                                    className={cn(buttonVariants({ variant: "orange", size: "md" }), "rounded-lg w-56 h-11 font-semibold")}
+                                    className={cn(buttonVariants({ variant: "orange", size: "md" }), "rounded-lg w-full sm:w-56 h-9 sm:h-11 font-semibold")}
                                 >
                                     Make Payment
                                 </Link>
                             </div>
 
-                            <form className="space-y-1.5">
-                                <h3 className="text-[1.05rem] font-semibold">Receipt</h3>
+                            {/* <form className="space-y-1.5">
+                                <h3 className="text-md sm:text-[1.05rem] font-semibold">Receipt</h3>
 
                                 <div className="space-y-2">
                                     <FileInput 
@@ -229,17 +236,17 @@ const Checkout = () => {
                                         className="col-span-full"
                                     />
                                     <Button
-                                        className="h-11 w-56 text-md"
+                                        className="w-full h-9 sm:h-11 sm:w-56 text-md"
                                     >
                                         Submit Receipt
                                     </Button>
                                 </div>
-                            </form>
+                            </form> */}
                         </div>
                     )}
                 </section>
 
-                <section className="bg-gray-50/90 border border-gray-200/80 rounded-lg p-5">
+                <section className="bg-gray-50/90 border border-gray-200/80 rounded-lg p-3 lg:p-5">
                     <CartCheckoutCollection />
                 </section>
             </main>

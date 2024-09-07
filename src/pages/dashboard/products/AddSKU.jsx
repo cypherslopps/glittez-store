@@ -1,16 +1,20 @@
 import { Hamburger, SEO } from '@/components'
+import { Icons } from '@/components/Icons'
 import { Button } from '@/components/ui/Button'
 import { FileInput, Input, Select } from '@/components/ui/Input'
 import useForm from '@/hooks/useForm'
 import axios from '@/lib/axios'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 const AddSKU = () => {
+  const navigate = useNavigate();
   const { productId } = useParams();
   const [image, setImage] = useState(null);
-  const { data, handleChange, isLoading, setIsLoading, errors } = useForm({
+  const { data, setData, handleChange, isLoading, setIsLoading, errors } = useForm({
     quantity: 0,
+    price: 0,
     size: "",
     color: ""
   });
@@ -21,10 +25,7 @@ const AddSKU = () => {
     try {
       const formData = new FormData();
       const payload = {
-        name: data.name,
-        category_id: 2,
-        subcategory_id: 4,
-        description: data.description,
+        product_id: productId,
         price: data.price,
         quantity: data.quantity,
         color: data.color,
@@ -34,14 +35,23 @@ const AddSKU = () => {
       Object.entries(payload).map(([name, value]) => formData.append(name, value));
 
       if (Object.values(payload).every(value => value !== "")) {
-        console.log("Submitting");
         setIsLoading(true);
-        const request = await axios.post('/products', formData);
-        const response = request.data;
-        console.log(response);
+        const request = await axios.post('/skus', formData);
+        const { message } = request.data;
+
+        setData(prev => ({
+          ...prev,
+          quantity: 0,
+          price: 0,
+          size: "",
+          color: ""
+        }));
+        setImage(null);
+
+        toast(message);
       }
     } catch (err) {
-      console.log(err);
+      toast("There was an error create Product SKU");
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +65,17 @@ const AddSKU = () => {
       />
 
       <header className='flex items-center justify-between mb-7'>
-        <h1 className='text-xl font-extrabold uppercase tracking-tight'>Add Product ({productId}) SKU</h1>
+        <div className='flex items-center gap-x-1'>
+          <Button
+            variant="ghost"
+            size="ghost"
+            onClick={() => navigate(-1)}
+          >
+            <Icons.arrowLeftS />
+          </Button>
+
+          <h1 className='text-xl font-extrabold uppercase tracking-tight'>Add Product ({productId}) SKU</h1>
+        </div>
         <Hamburger />
       </header>
 
@@ -64,46 +84,46 @@ const AddSKU = () => {
         className='w-full bg-white border border-gray-300/65 px-4 py-6 rounded-lg shadow-md shadow-black/5 space-y-3'
       >
         <div className='grid grid-cols-2 gap-4'>
-            <Input 
-                type="number"
-                label="Product Price"
-                name="price"
-                value={data.price}
-                onChange={handleChange}
-                error={errors.price}
-            />
+          <Input 
+            type="number"
+            label="Product Price"
+            name="price"
+            value={data.price}
+            onChange={handleChange}
+            error={errors.price}
+          />
 
-            <Input 
-                type="number"
-                label="Product Quantity"
-                name="quantity"
-                value={data.quantity}
-                onChange={handleChange}
-                error={errors.quantity}
-            />
-            
-            <Select 
-                name="size"
-                label="Product Size"
-                options={["XS", "SM", "LG", "XL", "XXL"]}
-                value={data.size}
-                onChange={handleChange}
-                error={errors.size}
-            />
+          <Input 
+            type="number"
+            label="Product Quantity"
+            name="quantity"
+            value={data.quantity}
+            onChange={handleChange}
+            error={errors.quantity}
+          />
+          
+          <Select 
+            name="size"
+            label="Product Size"
+            options={["XS", "SM", "LG", "XL", "XXL"]}
+            value={data.size}
+            onChange={handleChange}
+            error={errors.size}
+          />
 
-            <div className='flex flex-col gap-x-0.5'>
-                <span className='text-[.9rem]'>Product Color</span>
-                <input 
-                type="color"
-                name="color"
-                value={data.color}
-                onChange={handleChange}
-                className="w-full h-full"
-                />
-                {errors.size && (
-                    <span className="text-sm font-medium text-rose-500">{errors.size}</span>
-                )}
-            </div>
+          <div className='flex flex-col gap-x-0.5'>
+              <span className='text-[.9rem]'>Product Color</span>
+              <input 
+              type="color"
+              name="color"
+              value={data.color}
+              onChange={handleChange}
+              className="w-full h-full"
+              />
+              {errors.size && (
+                  <span className="text-sm font-medium text-rose-500">{errors.size}</span>
+              )}
+          </div>
 
           <FileInput 
               name="image"

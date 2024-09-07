@@ -1,16 +1,17 @@
 import { SEO } from '@/components'
 import { Button } from '@/components/ui/Button';
 import { Input, Select } from '@/components/ui/Input'
+import { useCities, useCountries, useStates } from '@/hooks/useCountries';
 import useForm from '@/hooks/useForm'
 import { errorEntries } from '@/lib/utils';
 import { useAuth } from '@/providers/AuthProvider';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 const Register = () => {
     const navigate = useNavigate();
     const { registerUser } = useAuth();
-    const { data, handleChange, isLoading, setIsLoading, errors, setErrors } = useForm({
+    const { data, setData, handleChange, isLoading, setIsLoading, errors, setErrors } = useForm({
         firstname: "",
         lastname: "",
         email: "",
@@ -24,10 +25,10 @@ const Register = () => {
         password: "",
         password_confirmation: ""
     });
-    const [responseMessage, setResponseMessage] = useState({
-        status: false,
-        message: ""
-    });
+    const { countries } = useCountries();
+    const states = useStates(data.country);
+    const cities = useCities(data.country, data.state)
+    console.log(countries, states, cities)
 
     const register = async (e) => {
         e.preventDefault();
@@ -38,10 +39,23 @@ const Register = () => {
                 setIsLoading(true);
                 
                 await registerUser(data);
-                setResponseMessage({
-                    message: "User successfully registered",
-                    status: true
-                });
+                toast("User successfully registered");
+
+                setData(prev => ({
+                    ...prev,
+                    firstname: "",
+                    lastname: "",
+                    email: "",
+                    phone: "",
+                    address_1: "",
+                    address_2: "",
+                    zip_code: "",
+                    country: "",
+                    state: "",
+                    city: "",
+                    password: "",
+                    password_confirmation: ""
+                }));
 
                 setTimeout(() => {
                     navigate(-1);
@@ -61,15 +75,15 @@ const Register = () => {
                 description="Access a world of unlimited products."
             />
 
-            <h1 className='text-4xl font-extrabold'>Register</h1>
+            <h1 className='text-3xl sm:text-4xl font-extrabold'>Register</h1>
 
             <form 
                 onSubmit={register}
-                className='w-[74vw]'
+                className='w-11/12 xsl:w-[75vw] sm:w-[70vw] lg:w-[74vw]'
             >
 
                 <div className='space-y-5'>
-                    <div className='grid grid-cols-2 gap-x-2 gap-y-3.5'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 gap-x-2 gap-y-3.5'>
                         <Input 
                             type="text"
                             name="firstname"
@@ -110,7 +124,7 @@ const Register = () => {
                             type="text"
                             name="country"
                             label="Country"
-                            options={["USA", "Belgium"]}
+                            options={countries}
                             value={data.country}
                             onChange={handleChange}
                             error={errors.country}
@@ -119,7 +133,7 @@ const Register = () => {
                         <Select 
                             name="state"
                             label="State"
-                            options={["GG", "Nagi"]}
+                            options={states}
                             value={data.state}
                             onChange={handleChange}
                             error={errors.state}
@@ -128,7 +142,7 @@ const Register = () => {
                         <Select 
                             name="city"
                             label="City"
-                            options={["GG", "Nagi"]}
+                            options={cities}
                             value={data.city}
                             onChange={handleChange}
                             error={errors.city}
@@ -183,7 +197,7 @@ const Register = () => {
                     <Button 
                         isLoading={isLoading}
                         disabled={isLoading}
-                        className="w-max mx-auto flex py-3 px-5 text-md font-medium h-max rounded-sm"
+                        className="w-full sm:w-max mx-auto flex py-2.5 md:py-3 px-5 text-md font-medium h-max rounded-sm"
                     >
                         Create an account
                     </Button>

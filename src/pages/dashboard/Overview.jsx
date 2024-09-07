@@ -1,9 +1,11 @@
-import { Hamburger, OverviewStats, ProductTable } from "@/components"
+import { CategoriesTable, Hamburger, OverviewStats } from "@/components"
 import { Button } from "@/components/ui/Button"
+import { useCategories } from "@/hooks/useCategories";
 import { useNavigate } from "react-router-dom"
 
 const Overview = () => {
   const navigate = useNavigate();
+  const { productCategories, isProductsCategoriesLoading } = useCategories();
 
   return (
     <div className="space-y-7">
@@ -24,11 +26,13 @@ const Overview = () => {
       <OverviewStats />
 
       <section className="grid grid-cols-[70%_1fr] gap-x-2">
-        <ProductTable 
-          data={[]}
-          isLoading={false}
+        <CategoriesTable 
+          data={productCategories}
+          isLoading={isProductsCategoriesLoading}
         />
-        <div className="bg-white border border-gray-300/70 rounded-lg p-3">Notifications</div>
+        <div className="bg-white border border-gray-300/70 rounded-lg p-3">
+          <h4 className="text-base font-bold">Notifications</h4>
+        </div>
       </section>
     </div>
   )
