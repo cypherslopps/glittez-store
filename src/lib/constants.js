@@ -1,5 +1,13 @@
 import { Icons } from "../components/Icons";
 
+export const INSTANT_SEARCH_INDEX_NAME = 'products';
+export const INSTANT_SEARCH_QUERY_SUGGESTIONS =
+  'products';
+export const INSTANT_SEARCH_HIERARCHICAL_ATTRIBUTES = [
+  'hierarchicalCategories.lvl0',
+  'hierarchicalCategories.lvl1',
+];
+
 export const navigationLinks = [
     {
         title: "Home",
@@ -93,96 +101,29 @@ export const dashboardNavigationLinks = [
     }
 ];
 
-
-export const allProducts = [
+export const topCategories = [
     {
-        id: 0,
-        title: "Nike Shoe",
-        category: "Shoes",
-        subCategory: null,
-        slug: "nike-shoe",
-        price: 32.42,
-        color: "red"
+        name: "Gaming",
+        Icon: Icons.game
     },
     {
-        id: 1,
-        title: "Jordan Shoe",
-        category: "Shoes",
-        subCategory: null,
-        slug: "jordan-shoe",
-        price: 132.42,
-        color: "milk"
+        name: "Home and office",
+        Icon: Icons.home
     },
     {
-        id: 2,
-        title: "Caron Shoe",
-        category: "Shoes",
-        subCategory: null,
-        slug: "caron-shoe",
-        price: 62.42,
-        color: "black"
+        name: "Fashion",
+        Icon: Icons.shirt
     },
     {
-        id: 3,
-        title: "Migan Shoe",
-        category: "Shoes",
-        subCategory: null,
-        slug: "migan-shoe",
-        price: 82,
-        color: "white"
+        name: "Computing",
+        Icon: Icons.gadget
     },
     {
-        id: 4,
-        title: "Colly Shoe",
-        category: "Shoes",
-        subCategory: null,
-        slug: "colly-shoe",
-        price: 82,
-        color: "white"
+        name: "Electronics",
+        Icon: Icons.electronics
     },
     {
-        id: 5,
-        title: "BMW",
-        category: "Cars",
-        subCategory: null,
-        slug: "bmw",
-        price: 3942.43,
-        color: "cyan"
-    },
-    {
-        id: 6,
-        title: "Macbook Air",
-        category: "Laptops",
-        subCategory: null,
-        slug: "macbook-air",
-        price: 1032.22,
-        color: "milk"
-    },
-    {
-        id: 7,
-        title: "IPhone 11",
-        category: "Phones",
-        subCategory: null,
-        slug: "iphone-11",
-        price: 612.42,
-        color: "black"
-    },
-    {
-        id: 8,
-        title: "Toyoto Corolla",
-        category: "Cars",
-        subCategory: null,
-        slug: "toyota-corolla",
-        price: 8132,
-        color: "white"
-    },
-    {
-        id: 9,
-        title: "Frank's Bottle",
-        category: "Kitchen",
-        subCategory: null,
-        slug: "franks-bottle",
-        price: 12,
-        color: "white"
+        name: "Groceries",
+        Icon: Icons.grocery
     }
-];
+]

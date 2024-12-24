@@ -33,7 +33,16 @@ import {
     RiUserFill,
     RiUserLine,
 } from "@remixicon/react";
-import { Eye, EyeOff } from "lucide-react";
+import { 
+    Eye, 
+    EyeOff,
+    Gamepad2, 
+    Shirt, 
+    Tv, 
+    LaptopMinimal, 
+    Printer,
+    Carrot
+} from "lucide-react";
 
 export const Icons = {
     overview: RiGovernmentFill,
@@ -68,5 +77,11 @@ export const Icons = {
     arrowUp: RiArrowUpLine,
     arrowUpDown: ChevronsUpDown,
     trash: RiDeleteBin4Line,
-    link: RiLink
+    link: RiLink,
+    game: Gamepad2,
+    shirt: Shirt,
+    gadget: LaptopMinimal,
+    electronics: Printer,
+    grocery: Carrot,
+    home: Tv
 }

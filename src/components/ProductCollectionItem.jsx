@@ -31,7 +31,7 @@ export const ProductCollectionItem = ({ product={} }) => {
         </Button>
       </div>
       <div className="h-[30%] lg:h-[30%] py-2 px-2.5 flex flex-col justify-between">
-        <h5 className="text-[.93rem] md:text-[.97rem] font-medium">{product?.name}</h5>
+        <h5 className="text-[.93rem] md:text-[.97rem] font-medium line-clamp-1">{product?.name}</h5>
 
         <div className="flex items-center justify-between">
           <div className="flex flex-col -space-y-1 md:-space-y-1.5">

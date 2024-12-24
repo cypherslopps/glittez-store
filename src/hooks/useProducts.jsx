@@ -3,18 +3,25 @@ import { removeDuplicateItemsFromArray } from '@/lib/utils';
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner';
 
-export const useProducts = () => {
+export const useProducts = ({per = null}) => {
   const [products, setProducts] = useState([]);
   const [productColors, setProductColors] = useState([]);
   const [productSizes, setProductSizes] = useState([]);
   const [productPrices, setProductPrices] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  let api;
+  if (per) {
+    api = `/products?per=${per}`
+  } else {
+    api = '/products'
+  }
+
   useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
-        const request = await axios.get("/products");
+        const request = await axios.get(api);
         const response = request.data;
         let colors = response.map(product => product.attributes.color).flat();
         let sizes = response.map(product => product.attributes.size).flat();
@@ -50,7 +57,7 @@ export const useProducts = () => {
         setIsLoading(false);
       }
     })();
-  }, []);
+  }, [api]);
 
   return { 
     products,

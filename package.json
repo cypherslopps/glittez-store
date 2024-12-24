@@ -10,6 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@algolia/autocomplete-js": "^1.17.4",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.17.4",
+    "@algolia/autocomplete-plugin-recent-searches": "^1.17.4",
+    "@algolia/autocomplete-shared": "^1.17.4",
+    "@algolia/autocomplete-theme-classic": "^1.17.4",
     "@gsap/react": "^2.1.1",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-collapsible": "^1.1.0",
@@ -23,7 +28,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-autoplay": "^8.1.8",
-    "embla-carousel-react": "^8.1.8",
+    "embla-carousel-react": "^8.2.1",
     "framer-motion": "^11.2.13",
     "gsap": "^3.12.5",
     "lucide-react": "^0.396.0",

@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 //   NavigationMenuTrigger,
 //   navigationMenuTriggerStyle,
 // } from "@/components/ui/NavigationMenu"
+import { motion, AnimatePresence } from "framer-motion";
 import { Icons } from './Icons';
 import { navigationLinks } from '@/lib/constants';
 import { Button } from './ui/Button';
@@ -17,9 +18,10 @@ import CartButton from './CartButton';
 import UserSettings from './UserSettings';
 import Favicon from "../assets/images/favicon-text.png";
 import Favicon2 from "../assets/images/favicon.png";
-// import InstantSearchBox from './InstantSearchBox';
 import NavigationDropdown from './NavigationDropdown';
 import { Hamburger } from '.';
+import AlgoliaSearchBox from './AlgoliaSearchBox';
+import { X } from 'lucide-react'
 
 
 const GuestNavigationLink = ({ title, route, hasDropdown }) => {
@@ -60,6 +62,7 @@ GuestNavigationLink.propTypes = {
 }
 
 const GuestNavigation = () => {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (
     <nav className="flex items-center justify-between py-1.5 sm:py-3 border-b border-gray-400/35 relative">
@@ -102,6 +105,7 @@ const GuestNavigation = () => {
         <Button 
           variant="ghost"
           size="ghost"
+          onClick={() => setIsSearchOpen(true)}
         >
           <Icons.search className='w-6 h-6 text-gray-600/95' />
         </Button>
@@ -115,6 +119,43 @@ const GuestNavigation = () => {
         {/* Hamburger */}
         <Hamburger />
       </div>
+
+      {/* Search Modal */}
+      {isSearchOpen && (
+        <AnimatePresence>
+          <motion.div 
+            onClick={() => setIsSearchOpen(false)}
+            className="fixed top-0 left-0 w-full h-full z-[5100] bg-black/10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* content */}
+            <motion.div 
+              className="relative w-[90vw] h-[90vh] bg-white rounded-md absolute top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%] shadow-md rounded-md z-[6000]"
+              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              {/* close */}
+              <button 
+                onClick={() => setIsSearchOpen(false)}
+                className="absolute -top-4 -right-10 z-10 w-[2rem] h-[2rem] rounded-md border border-gray-300 bg-white cursor-pointer flex items-center justify-center">
+                <X className="stroke-gray-600" />
+              </button>
+
+              {/* header */}
+              <header className="w-full relative px-1">
+                <div className='w-full py-6'>
+                  <AlgoliaSearchBox />
+                </div>
+              </header>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+      )}
     </nav>
   )
 }

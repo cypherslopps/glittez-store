@@ -9,7 +9,7 @@ const SEO = ({ title, description }) => {
     <Helmet>
         <title>{title}</title>
         <meta name="description" content={description}/>
-        <meta name="keyword" content='glittez, ecommerce, shop, cart' />
+        <meta name="keyword" content='glittez, ecommerce, shop, cart, global' />
         <link rel="canonical" href={`https://www.glittez.com${pathname}`} />
 
         {/* OG Meta tags */}
@@ -20,7 +20,7 @@ const SEO = ({ title, description }) => {
         <meta property="og:site_name" content="https://glittez.com" />
 
         {/* Twitter */}
-        <meta name="twitter:creator" content="TonBunnies" />
+        <meta name="twitter:creator" content="Glittezstore" />
         <meta name="twitter:card" content="web app" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
